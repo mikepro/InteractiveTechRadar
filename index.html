@@ -34,12 +34,12 @@
 
             function calculateNumberOfBlipsForPosition(position, maxPositions, division)
             {
-                var d = Math.floor(maxPositions / division);
-                var e = position / division;
-                if(e <= d)
+                var ammountOfFullRings = Math.floor(maxPositions / division);
+                var currentRingNumber = position / division;
+                if(currentRingNumber <= ammountOfFullRings)
                     return division;
                 else
-                    return maxPositions - Math.floor(position / division) * division;
+                    return maxPositions - Math.floor(currentRingNumber) * division;
             }
 
             function calculateBlipPositions()
