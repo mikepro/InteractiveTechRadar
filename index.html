@@ -66,7 +66,6 @@
 
             function calculateBlipPositions()
             {
-                //this.numberOfDegressForEachBlip = self.blips.length >1 ? 80 / self.blips.length: 40;
                 this.localRadius = 40;
                 var blipPosition =0;
                 var radiusNumber=1;
@@ -90,16 +89,6 @@
                         value.x = center.x + newX;
                         value.y = center.y - newY;
                 },this);
-                /*if(self.blips[0])
-                {
-                    self.blips[0].x = center.x + 38.45;
-                    self.blips[0].y = center.y - 11.02;
-                }
-                if(self.blips[1])
-                {
-                    self.blips[1].x = center.x +33.92;
-                    self.blips[1].y = center.y-21.19;
-                }*/
             }
         }
 
@@ -161,9 +150,6 @@
     </script>
     </head>
     <body ng-app ng-controller="MyController">
-        <div ng-attr-cx="{{bob}}">
-            some text in here
-        </div>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
             <line x1="500" y1="250" x2="500" y2="0" stroke="black" stroke-width="2"/>
             <line x1="500" y1="250" x2="750" y2="250" stroke="black" stroke-width="2"/>
@@ -171,13 +157,7 @@
             <line x1="500" y1="250" x2="100" y2="250" stroke="black" stroke-width="2"/>
             <circle ng-repeat-start="ring in model.rings" cx="500" cy="250" ng-attr-r="{{ring.radius}}" stroke="black" stroke-width="2" fill="none"/>
             <circle ng-repeat="blip in ring.blips" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2" stroke="black" stroke-width="2" fill="black"/>
-            <circle ng-repeat-end/>
-            <!--<circle ng-attr-cx="{{500+ 38.45}}" ng-attr-cy="{{250-11.02}}" r="2" stroke="black" stroke-width="2" fill="black"/>-->
-            <!--<circle ng-attr-cx="{{500+ 33.92}}" ng-attr-cy="{{250-21.19}}" r="2" stroke="black" stroke-width="2" fill="black"/>-->
-            <!--<circle ng-attr-cx="{{500+ 26.76}}" ng-attr-cy="{{250-29.72}}" r="2" stroke="black" stroke-width="2" fill="black"/>-->
-            <!--<circle ng-attr-cx="{{500+ 17.53}}" ng-attr-cy="{{250-35.95}}" r="2" stroke="black" stroke-width="2" fill="black"/>-->
-            <!--<circle ng-attr-cx="{{500+ 6.94}}" ng-attr-cy="{{250-39}}" r="2" stroke="black" stroke-width="2" fill="black"/>-->
-            <text ng-repeat="ring in model.rings" fill="black" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}" >{{ring.title}}</text>
+            <text ng-repeat-end ng-repeat="ring in model.rings" fill="black" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}" >{{ring.title}}</text>
         </svg>
         <input type="button" value="addNewCircle()" ng-click="addRing()"/>
         <input type="button" value="removeCircle()" ng-click="removeRing()"/>
