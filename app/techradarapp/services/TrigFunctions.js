@@ -6,7 +6,7 @@ app.service('TrigFunctions', function()
         },
         this.ConvertRadToDeg= function(rad)
         {
-            return (rad * 180) / 180;
+            return rad * (180 / Math.PI);
         }
     }
 );
