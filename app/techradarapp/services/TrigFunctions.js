@@ -8,6 +8,10 @@ app.service('TrigFunctions', function()
         {
             return rad * (180 / Math.PI);
         }
+        this.RoundToThreeDecimalPlaces = function(number)
+        {
+            return Math.round(number * 1000)/ 1000;
+        }
     }
 );
 
