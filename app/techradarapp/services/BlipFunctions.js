@@ -55,8 +55,8 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
                 var angle = blipPosition * numberOfDegressForEachBlip;
                 var newY = Math.sin(trigFunctions.ConvertDegToRad(angle)) * this.localRadius;
                 var newX = Math.cos(trigFunctions.ConvertDegToRad(angle)) * this.localRadius;
-                value.x = center.x + newX;
-                value.y = center.y - newY;
+                value.x = Math.round((center.x + newX) * 1000)/ 1000;
+                value.y = Math.round((center.y - newY) * 1000)/1000;
         },this);
     }
 }]);
