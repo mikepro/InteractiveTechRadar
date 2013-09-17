@@ -16,9 +16,11 @@
             <line x1="500" y1="250" x2="750" y2="250" stroke="black" stroke-width="2"/>
             <line x1="500" y1="250" x2="500" y2="700" stroke="black" stroke-width="2"/>
             <line x1="500" y1="250" x2="100" y2="250" stroke="black" stroke-width="2"/>
-            <circle ng-repeat-start="ring in model.rings" cx="500" cy="250" ng-attr-r="{{ring.radius}}" stroke="black" stroke-width="2" fill="none"/>
-            <circle ng-repeat="blip in ring.blips" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2" stroke="black" stroke-width="2" fill="black"/>
-            <text ng-repeat-end ng-repeat="ring in model.rings" fill="black" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}" >{{ring.title}}</text>
+            <g ng-repeat="ring in model.rings">
+                <circle  cx="500" cy="250" ng-attr-r="{{ring.radius}}" stroke="black" stroke-width="2" fill="none"/>
+                <circle ng-repeat="blip in ring.blips" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2" stroke="black" stroke-width="2" fill="black"/>
+                <text fill="black" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}" >{{ring.title}}</text>
+            </g>
         </svg>
         <input type="button" value="addNewCircle()" ng-click="addRing()"/>
         <input type="button" value="removeCircle()" ng-click="removeRing()"/>
