@@ -7,9 +7,9 @@ app.factory('TechRadarModel',['BlipModel','RingModel',function(BlipModel,RingMod
         self.centerCords = {'x':centerX, 'y':centerY}
         self.init = function()
         {
-            self.addRing(new RingModel('Adopt', 40, self.centerCords));
-            self.addRing(new RingModel('Trial', 80, self.centerCords));
-            self.addRing(new RingModel('Candidate', 120, self.centerCords));
+            self.addRing(new RingModel('Adopt', 80, self.centerCords));
+            self.addRing(new RingModel('Trial', 160, self.centerCords));
+            self.addRing(new RingModel('Candidate', 240, self.centerCords));
 
             self.rings[0].addBlip(new BlipModel('1', 'test', true,0));
             self.rings[0].addBlip(new BlipModel('2', 'test', true,0));

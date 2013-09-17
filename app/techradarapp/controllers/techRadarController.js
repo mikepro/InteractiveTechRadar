@@ -7,7 +7,7 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel', fun
     $scope.addRing = function()
     {
         var numberOfRings = $scope.model.rings.length;
-        $scope.model.addRing(new RingModel('trial', numberOfRings ?$scope.model.rings[numberOfRings-1].radius + 40 : 40,self.centerCords));
+        $scope.model.addRing(new RingModel('trial', numberOfRings ?$scope.model.rings[numberOfRings-1].radius + 80 : 80,self.centerCords));
     }
 
     $scope.removeRing = function()
