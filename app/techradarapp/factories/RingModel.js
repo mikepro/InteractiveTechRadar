@@ -5,8 +5,8 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions',function(trigFunctions,
         var self = this;
         self.title = title;
         self.radius = radius;
-        self.y = center.y+ radius -10;
-        self.x = center.x; 
+        self.y = center.y
+        self.x = center.x+ radius -40; 
         self.blips = [];
         self.groupedBlips ={};
         self.addBlip = function(blipModel)
