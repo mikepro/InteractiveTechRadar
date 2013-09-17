@@ -10,8 +10,8 @@ app.factory('TechRadarModel',['BlipModel','RingModel',function(BlipModel,RingMod
             self.addRing(new RingModel('test', 40, self.centerCords));
             self.addRing(new RingModel('bob', 60, self.centerCords));
 
-            self.rings[0].addBlip(new BlipModel('1', 'test', true));
-            self.rings[0].addBlip(new BlipModel('2', 'test', true));
+            self.rings[0].addBlip(new BlipModel('1', 'test', true,0));
+            self.rings[0].addBlip(new BlipModel('2', 'test', true,0));
         }
 
         self.addRing = function(ringModel)
@@ -20,7 +20,7 @@ app.factory('TechRadarModel',['BlipModel','RingModel',function(BlipModel,RingMod
         }
         self.removeRing = function()
         {
-            self.rings.pop();
+            var removedRing = self.rings.pop();
         }
     }
 }]);

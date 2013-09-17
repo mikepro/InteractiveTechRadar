@@ -8,15 +8,24 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions',function(trigFunctions,
         self.y = center.y+ radius -10;
         self.x = center.x; 
         self.blips = [];
+        self.groupedBlips ={};
         self.addBlip = function(blipModel)
         {
+            var group = blipModel.group;
             self.blips.push(blipModel);
-            blipFunctions.calculateBlipPositions(self.blips, center);
+            if(!self.groupedBlips[group])
+            {
+                self.groupedBlips[group] =[];
+            }
+            self.groupedBlips[group].push(blipModel);
+            blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center, group);
         }
         self.removeBlip = function()
         {
-            self.blips.pop();
-            blipFunctions.calculateBlipPositions(self.blips,center);
+            var removedBlip = self.blips.pop();
+            var groupToCalculate = removedBlip.group;
+            self.groupedBlips[groupToCalculate].pop();
+            blipFunctions.calculateBlipPositions(self.groupedBlips[groupToCalculate],center,groupToCalculate);
         }
     }
 }]);

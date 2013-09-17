@@ -33,11 +33,12 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
         }
     }
 
-    this.calculateBlipPositions = function(blips, center)
+    this.calculateBlipPositions = function(blips, center, group)
     {
         this.localRadius = 40;
         var blipPosition =0;
         var radiusNumber=1;
+        var offset = 90*group;
         angular.forEach(blips, function(value, key){
                 blipPosition = blipPosition +1; 
                 var itteration = key +1;
@@ -52,7 +53,7 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
                     blipPosition=1; 
                 }
                 var numberOfDegressForEachBlip = 80 / ( totalBlipsForIter>1? totalBlipsForIter: 2);
-                var angle = blipPosition * numberOfDegressForEachBlip;
+                var angle = (blipPosition * numberOfDegressForEachBlip) - offset;
                 var newY = Math.sin(trigFunctions.ConvertDegToRad(angle)) * this.localRadius;
                 var newX = Math.cos(trigFunctions.ConvertDegToRad(angle)) * this.localRadius;
                 value.x =trigFunctions.RoundToThreeDecimalPlaces(center.x + newX);

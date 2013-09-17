@@ -1,5 +1,5 @@
 var app = angular.module('TechRadarApp');
-app.controller('TechRadarController',['$scope','TechRadarModel', function($scope,TechRadarModel){
+app.controller('TechRadarController',['$scope','TechRadarModel','RingModel', function($scope,TechRadarModel,RingModel){
     var self = this;
     self.centerCords= {'x': 500, 'y': 250};
     $scope.model = new TechRadarModel(self.centerCords.x, self.centerCords.y );
@@ -14,8 +14,8 @@ app.controller('TechRadarController',['$scope','TechRadarModel', function($scope
     {
         $scope.model.removeRing();
     }
-    $scope.addBlip = function(){
-        $scope.model.rings[0].addBlip(new BlipModel('3', 't', false));
+    $scope.addBlip = function(group){
+        $scope.model.rings[0].addBlip(new BlipModel('3', 't', false,group));
     }
     $scope.removeBlip = function(){
         $scope.model.rings[0].removeBlip();

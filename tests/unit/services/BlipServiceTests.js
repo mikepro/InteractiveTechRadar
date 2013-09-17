@@ -66,16 +66,19 @@ describe('Blip functions',function(){
         var fakeBlips = [];
         for(var i=0; i<numOfBlips; i++)
         {
-            fakeBlips.push({x:0,y:0});
+            fakeBlips.push({x:0,y:0,group:0});
         }
         return fakeBlips;
     }
 
     describe('should be able to correctly calculate blip positions',function(){
+        function calculateBlipPositions(blips)
+        {
+            blipFunc.calculateBlipPositions(blips, {x:200, y:200},0);
+        }
         it('when there is a only 1 blip on a ring with a radius of 40', function(){
             var blips =CreateBlips(1);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
-
+            calculateBlipPositions(blips);
             var firstBlipPosition = blips[0]; 
             expect(firstBlipPosition.x).toBe(230.642);
             expect(firstBlipPosition.y).toBe(174.288);
@@ -83,7 +86,7 @@ describe('Blip functions',function(){
 
         it('when there is a only 2 blip on a ring with a radius of 40', function(){
             var blips = CreateBlips(2);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
             expect(firstBlipPosition.x).toBe(230.642);
@@ -96,7 +99,7 @@ describe('Blip functions',function(){
 
         it('when there is a only 3 blip on a ring with a radius of 40', function(){
             var blips =CreateBlips(3);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
             expect(firstBlipPosition.x).toBe(235.745);
@@ -113,7 +116,7 @@ describe('Blip functions',function(){
 
         it('when there are 4 blips on a ring with a radius of 40', function(){
             var blips =CreateBlips(4);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
             expect(firstBlipPosition.x).toBe(237.588);
@@ -134,7 +137,7 @@ describe('Blip functions',function(){
 
         it('when there are 5 blips on a ring with a radius of 40', function(){
             var blips =CreateBlips(5);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
             expect(firstBlipPosition.x).toBe(238.45);
@@ -159,7 +162,7 @@ describe('Blip functions',function(){
 
         it('when there are 6 blips on a ring with a radius of 40 the first 5 blips should have the same positions as if there were only 5 blips', function(){
             var blips =CreateBlips(6);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
             expect(firstBlipPosition.x).toBe(238.45);
@@ -188,7 +191,7 @@ describe('Blip functions',function(){
 
         it('when there are 7 blips on a ring with a radius of 40 blips 6 and 7 should be set accordingly',function(){
             var blips =CreateBlips(7);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
             expect(sixthPostion.x).toBe(238.302);
@@ -201,7 +204,7 @@ describe('Blip functions',function(){
 
         it('when there are 8 blips on a ring with a radius of 40 blips 6, 7,8 should be set accordingly',function(){
             var blips =CreateBlips(8);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
             expect(sixthPostion.x).toBe(244.682);
@@ -218,7 +221,7 @@ describe('Blip functions',function(){
 
         it('when there are 9 blips on a ring with a radius of 40 blips 6, 7,8 and 9 should be set accordingly',function(){
             var blips =CreateBlips(9);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
             expect(sixthPostion.x).toBe(246.985);
@@ -239,7 +242,7 @@ describe('Blip functions',function(){
 
         it('when there are 10 blips on a ring with a radius of 40 blips 6, 7,8 9 and 10 should be set accordingly',function(){
             var blips =CreateBlips(10);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
             expect(sixthPostion.x).toBe(248.063);
@@ -264,7 +267,7 @@ describe('Blip functions',function(){
 
         it('when there are 11 blips on a ring with a radius of 40 blips 6, 7,8 9, 10 and 11 should be set accordingly',function(){
             var blips =CreateBlips(11);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
             expect(sixthPostion.x).toBe(248.652);
@@ -293,7 +296,7 @@ describe('Blip functions',function(){
 
         it('when there are 12 blips on a ring with a radius of 40 blips 6, 7,8 9, 10 and 11 should not change',function(){
             var blips =CreateBlips(12);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
             expect(sixthPostion.x).toBe(248.652);
@@ -322,7 +325,7 @@ describe('Blip functions',function(){
 
         it('when there are 13 blips on a ring with a radius of 40', function(){
             var blips =CreateBlips(12);
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200});
+            calculateBlipPositions(blips);
 
             var twelvePostion = blips[11];
             expect(twelvePostion.x).toBe(245.963);
