@@ -20,4 +20,10 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel', fun
     $scope.removeBlip = function(){
         $scope.model.rings[0].removeBlip();
     }
+    $scope.zoomIn = function(){
+        $scope.model.zoomIn();
+    }
+    $scope.zoomOut = function(){
+        $scope.model.zoomOut();
+    }
 }]);

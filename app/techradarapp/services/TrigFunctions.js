@@ -10,7 +10,14 @@ app.service('TrigFunctions', function()
         }
         this.RoundToThreeDecimalPlaces = function(number)
         {
-            return Math.round(number * 1000)/ 1000;
+            //return Math.round(number * 1000)/ 1000;
+            return this.RoundToDecimalPlaces(number, 3);
+        }
+
+        this.RoundToDecimalPlaces = function(number, decimalPlaces)
+        {
+            var multiplier = Math.pow(10,decimalPlaces);
+            return Math.round(number * multiplier)/ multiplier;
         }
     }
 );

@@ -12,17 +12,17 @@
     </head>
     <body ng-app="TechRadarApp" ng-controller="TechRadarController">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <!--<line x1="500" y1="250" x2="500" y2="0" stroke="black" stroke-width="2"/>
-            <line x1="500" y1="250" x2="750" y2="250" stroke="black" stroke-width="2"/>
-            <line x1="500" y1="250" x2="500" y2="700" stroke="black" stroke-width="2"/>
-            <line x1="500" y1="250" x2="100" y2="250" stroke="black" stroke-width="2"/>-->
-            <line stroke="black" stroke-width="2" ng-attr-x1="{{line.x1}}" ng-attr-y1="{{line.y1}}" ng-attr-x2="{{line.x2}}" ng-attr-y2="{{line.y2}}" ng-repeat="line in model.groupLines"/>
-            <g ng-repeat="ring in model.rings">
-                <circle  cx="500" cy="250" ng-attr-r="{{ring.radius}}" stroke="black" stroke-width="2" fill="none"/>
-                <circle ng-repeat="blip in ring.blips" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2" stroke="black" stroke-width="2" fill="black"/>
-                <text fill="black" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}" >{{ring.title}}</text>
+            <g transform="scale({{model.zoomLevel}})">
+                <line stroke="black" stroke-width="2" ng-attr-x1="{{line.x1}}" ng-attr-y1="{{line.y1}}" ng-attr-x2="{{line.x2}}" ng-attr-y2="{{line.y2}}" ng-repeat="line in model.groupLines"/>
+                <g ng-repeat="ring in model.rings">
+                    <circle  cx="500" cy="250" ng-attr-r="{{ring.radius}}" stroke="black" stroke-width="2" fill="none"/>
+                    <circle ng-repeat="blip in ring.blips" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2" stroke="black" stroke-width="2" fill="black"/>
+                    <text fill="black" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}" >{{ring.title}}</text>
+                </g>
             </g>
         </svg>
+        <input type="button" value="+" ng-click="zoomIn()"/>
+        <input type="button" value="-" ng-click="zoomOut()"/>
         <input type="button" value="addNewCircle()" ng-click="addRing()"/>
         <input type="button" value="removeCircle()" ng-click="removeRing()"/>
         <input type="button" value="addBlip(0)" ng-click="addBlip(0)"/>

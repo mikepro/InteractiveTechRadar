@@ -1,11 +1,12 @@
 
 var app = angular.module('TechRadarApp');
-app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope',function(BlipModel,RingModel,rootScope){
+app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunctions',function(BlipModel,RingModel,rootScope,trigFunctions){
     return function TechRadarModel (centerX, centerY){
         var self = this;
         self.rings = [];
         self.centerCords = {'x':centerX, 'y':centerY}
         self.groupLines = [];
+        self.zoomLevel =1;
         self.init = function()
         {
             self.addRing(new RingModel('Adopt', 80, self.centerCords));
@@ -15,6 +16,21 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope',function(Blip
             self.rings[0].addBlip(new BlipModel('1', 'test', true,0));
             self.rings[0].addBlip(new BlipModel('2', 'test', true,0));
         }
+        
+        self.zoomIn = function()
+        {
+            self.zoomLevel = self.zoomLevel + 0.10;
+        }
+
+        self.zoomOut = function()
+        {
+            var roundedZoomLevel = trigFunctions.RoundToDecimalPlaces(self.zoomLevel, 1);
+            if(roundedZoomLevel > 0.10)
+            {
+                self.zoomLevel = self.zoomLevel - 0.10;
+            }
+        }
+    
 
         self.addRing = function(ringModel)
         {
