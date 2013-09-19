@@ -33,6 +33,23 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
         }
     }
 
+    this.calculateLargestRadius = function(startingRadius, radiusInc,distancePerBlib, totalLength,numberOfGroups)
+    {
+       var itemsProcessed =0;
+       var currentRadius = startingRadius;
+       while(itemsProcessed < totalLength)
+       {
+           var maxBlips = this.calculateMaxNumberOfBlipsForRing(currentRadius, distancePerBlib, numberOfGroups);
+           itemsProcessed = itemsProcessed + maxBlips;
+           if(itemsProcessed >= totalLength)
+           {
+               return currentRadius;
+           }
+           currentRadius = currentRadius + radiusInc;
+
+       }
+    }
+
     this.calculateBlipPositions = function(blips, center, group)
     {
         this.localRadius = 40;

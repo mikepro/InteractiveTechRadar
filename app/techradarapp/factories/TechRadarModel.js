@@ -1,6 +1,6 @@
 
 var app = angular.module('TechRadarApp');
-app.factory('TechRadarModel',['BlipModel','RingModel',function(BlipModel,RingModel){
+app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope',function(BlipModel,RingModel,rootScope){
     return function TechRadarModel (centerX, centerY){
         var self = this;
         self.rings = [];
@@ -26,6 +26,17 @@ app.factory('TechRadarModel',['BlipModel','RingModel',function(BlipModel,RingMod
             var removedRing = self.rings.pop();
             self.groupLines = computeGroupLines();
         }
+
+        rootScope.$on('radiusChange',function(name, data){
+            var indexRingChanged = self.rings.indexOf(data.ring);
+            var radiusInc = data.inc;
+            for(var count = indexRingChanged+1; count < self.rings.length; count++)
+            {
+                self.rings[count].offsetRadius(radiusInc);
+            }
+            self.groupLines = computeGroupLines();
+        });
+
         function computeGroupLines()
         {
             var lastRingIndex = self.rings.length -1;
