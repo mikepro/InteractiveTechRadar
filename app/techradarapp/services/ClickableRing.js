@@ -16,6 +16,15 @@ app.service('ClickableRing',function(){
 
         return model;
     }
+    this.constructAll = function(startingCords,firstRadius,secondRadius){
+        var models=[];
+        for(var i=0;i<4;i++)
+        {
+            models.push(this.construct(startingCords,firstRadius,secondRadius,i));
+        }
+        return models;
+    }
+
     function setupGroupOne(model,group,startingCords, innerRadius){
         if(group ===0)
         {

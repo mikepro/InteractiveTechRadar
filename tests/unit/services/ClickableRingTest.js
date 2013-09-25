@@ -28,6 +28,15 @@ describe('Clickable ring construction',function(){
         expect(curveRadius.y).toBe(9);
     });
 
+    it('Should be possible to create all the clickable rings for each four quadrants',function(){
+    
+        var clickableRings = clickableRingService.constructAll(center,0,10);
+        var firstGroup = clickableRings[0];
+        expect(clickableRings.length).toBe(4);
+        expect(firstGroup.startingAt.x).toBe(0);
+        expect(firstGroup.startingAt.y).toBe(-5);
+    });
+
     describe('for a given ring in the first group',function(){
         var firstGroup =0;
 
