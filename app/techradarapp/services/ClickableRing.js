@@ -14,6 +14,8 @@ app.service('ClickableRing',function(){
         setupGroupThree(model,group, startingCords,innerRadius);
         setupGroupFour(model,group, startingCords,innerRadius);
 
+        model.svgPath = createSvgPath(model);
+
         return model;
     }
     this.constructAll = function(startingCords,firstRadius,secondRadius){
@@ -23,6 +25,14 @@ app.service('ClickableRing',function(){
             models.push(this.construct(startingCords,firstRadius,secondRadius,i));
         }
         return models;
+    }
+    function createSvgPath(clickableModel)
+    {
+        var moveTocommand = "M"+clickableModel.startingAt.x + ' '+clickableModel.startingAt.y + ' ';
+        var createArchRadius = "A"+clickableModel.curveRadius.x + ' '+clickableModel.curveRadius.y + ' ';
+        var typeOfArch = '0 0 0 ';
+        var endingCords = clickableModel.endingAt.x + ' ' + clickableModel.endingAt.y;
+        return moveTocommand + createArchRadius + typeOfArch+endingCords;
     }
 
     function setupGroupOne(model,group,startingCords, innerRadius){
@@ -72,6 +82,7 @@ app.service('ClickableRing',function(){
         this.startingAt = {x:undefined,y:undefined};
         this.endingAt = {x:undefined,y:undefined};
         this.curveRadius ={x:undefined,y:undefined};
+        this.svgPath = undefined;
     }
 });
 
