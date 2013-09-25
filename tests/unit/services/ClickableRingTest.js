@@ -19,13 +19,20 @@ describe('Clickable ring construction',function(){
         expect(curveRadius.y).toBe(5);
     });
 
-    it('Should be able to create the correct curve when not the starting',function(){
+    it('Should be able to create the correct curve when not the starting ring',function(){
         var clickableRings = clickableRingService.construct(center,6,12,0);
 
         var curveRadius = clickableRings.curveRadius;
 
         expect(curveRadius.x).toBe(9);
         expect(curveRadius.y).toBe(9);
+    });
+
+    it('Should be able to create the correct width of the string so as it fills the ring',function(){
+        var clickableRings = clickableRingService.construct(center,6,12,0);
+        var width = clickableRings.width;
+
+        expect(width).toBe(6);
     });
 
     it('Should be possible to create all the clickable rings for each four quadrants',function(){

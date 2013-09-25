@@ -3,11 +3,13 @@ app.service('ClickableRing',function(){
     this.construct = function(startingCords, firstRadius, secondRadius, group){
         var model = new ClickableModel();
 
-        var midpoint = (secondRadius - firstRadius) / 2;
+        var radiusDifference = secondRadius - firstRadius;
+        var midpoint = radiusDifference / 2;
         var innerRadius = firstRadius +midpoint;
 
         model.curveRadius.x = innerRadius;
         model.curveRadius.y = innerRadius;
+        model.width =radiusDifference;
 
         setupGroupOne(model,group, startingCords,innerRadius);
         setupGroupTwo(model,group, startingCords,innerRadius);
@@ -83,6 +85,7 @@ app.service('ClickableRing',function(){
         this.endingAt = {x:undefined,y:undefined};
         this.curveRadius ={x:undefined,y:undefined};
         this.svgPath = undefined;
+        this.width = undefined;
     }
 });
 
