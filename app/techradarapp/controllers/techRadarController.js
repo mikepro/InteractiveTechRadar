@@ -7,7 +7,9 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel', fun
     $scope.addRing = function()
     {
         var numberOfRings = $scope.model.rings.length;
-        $scope.model.addRing(new RingModel('trial', numberOfRings ?$scope.model.rings[numberOfRings-1].radius + 80 : 80,self.centerCords));
+        var startingRadius =numberOfRings ?$scope.model.rings[numberOfRings-1].radius:  0;
+        var endingRadius = numberOfRings ?$scope.model.rings[numberOfRings-1].radius + 80 : 80;
+        $scope.model.addRing(new RingModel('trial', startingRadius, endingRadius ,self.centerCords));
     }
 
     $scope.removeRing = function()
@@ -25,5 +27,9 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel', fun
     }
     $scope.zoomOut = function(){
         $scope.model.zoomOut();
+    }
+    $scope.sayHi = function(index, ring)
+    {
+        alert('You clicked group ' + index + ' in the '+ring.title+' ring');
     }
 }]);

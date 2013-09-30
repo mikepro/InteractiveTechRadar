@@ -32,7 +32,7 @@ app.service('ClickableRing',function(){
     {
         var moveTocommand = "M"+clickableModel.startingAt.x + ' '+clickableModel.startingAt.y + ' ';
         var createArchRadius = "A"+clickableModel.curveRadius.x + ' '+clickableModel.curveRadius.y + ' ';
-        var typeOfArch = '0 0 0 ';
+        var typeOfArch = '0 0 1 ';
         var endingCords = clickableModel.endingAt.x + ' ' + clickableModel.endingAt.y;
         return moveTocommand + createArchRadius + typeOfArch+endingCords;
     }

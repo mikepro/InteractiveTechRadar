@@ -46,7 +46,7 @@ describe('Clickable ring construction',function(){
 
     it('Should be able to create a svg path when a clickable ring is created',function(){
         var clickableRing = clickableRingService.construct(center,startingRadius,endingRadius,0);
-        var expectedPath = "M0 -5 A5 5 0 0 0 5 0";
+        var expectedPath = "M0 -5 A5 5 0 0 1 5 0";
         expect(clickableRing.svgPath).toBe(expectedPath);
     });
 

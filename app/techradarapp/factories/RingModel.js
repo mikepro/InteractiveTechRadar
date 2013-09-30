@@ -1,6 +1,6 @@
 var app = angular.module('TechRadarApp');
-app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope',function(trigFunctions, blipFunctions, rootScope){
-    return function RingModel(title, radius, center)
+app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','ClickableRing',function(trigFunctions, blipFunctions, rootScope,clickableRing){
+    return function RingModel(title, startingRadius, radius, center)
     {
         var self = this;
         self.title = title;
@@ -10,6 +10,8 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope',function(t
         setTextPosition(radius);
         self.blips = [];
         self.groupedBlips ={};
+        self.startingRadius = startingRadius;
+        self.clickableRings = clickableRing.constructAll(center, self.startingRadius,radius);
         self.addBlip = function(blipModel)
         {
             var group = blipModel.group;
@@ -33,7 +35,13 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope',function(t
 
         self.offsetRadius = function(offset){
             self.radius = self.radius + offset;
+            self.startingRadius = self.startingRadius + offset;
             setTextPosition(self.radius);
+            offsetClickableRing();
+        }
+
+        function offsetClickableRing(){
+            self.clickableRings = clickableRing.constructAll(center, self.startingRadius,self.radius);
         }
 
         function setTextPosition(radius)
@@ -72,13 +80,14 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope',function(t
                 self.radius =biggestGroupRadius; 
                 rootScope.$broadcast('radiusChange',{ring:self, inc: radiusChangeInc});
                 setTextPosition(biggestGroupRadius);
+                offsetClickableRing();
             }
 
             var biggestGroupRadius = getLargestRadius();
 
             var hasRadiusIncreased = biggestGroupRadius > self.radius;
             var hasRadiusDecreased = biggestGroupRadius < self.radius && !(self.radius < radius);
-            if(hasRadiusChanged())
+            if(hasRadiusChanged() && biggestGroupRadius > radius)
             {
                 changeRadius();
             }

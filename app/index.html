@@ -9,12 +9,14 @@
     <script type="text/javascript" src="techradarapp/factories/BlipModel.js"></script>
     <script type="text/javascript" src="techradarapp/factories/RingModel.js"></script>
     <script type="text/javascript" src="techradarapp/services/BlipFunctions.js"></script>
+    <script type="text/javascript" src="techradarapp/services/ClickableRing.js"></script>
     </head>
     <body ng-app="TechRadarApp" ng-controller="TechRadarController">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
             <g transform="scale({{model.zoomLevel}})">
                 <line stroke="black" stroke-width="2" ng-attr-x1="{{line.x1}}" ng-attr-y1="{{line.y1}}" ng-attr-x2="{{line.x2}}" ng-attr-y2="{{line.y2}}" ng-repeat="line in model.groupLines"/>
                 <g ng-repeat="ring in model.rings">
+                    <path ng-repeat="x in ring.clickableRings" stroke-opacity="0" stroke="blue" stroke-width="{{x.width}}" fill="none" ng-attr-d="{{x.svgPath}}" ng-click="sayHi($index,ring)"/>
                     <circle  cx="500" cy="250" ng-attr-r="{{ring.radius}}" stroke="black" stroke-width="2" fill="none"/>
                     <circle ng-repeat="blip in ring.blips" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2" stroke="black" stroke-width="2" fill="black"/>
                     <text fill="black" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}" >{{ring.title}}</text>
