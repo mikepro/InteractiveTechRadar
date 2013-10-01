@@ -74,7 +74,7 @@ describe('Blip functions',function(){
     describe('should be able to correctly calculate blip positions',function(){
         function calculateBlipPositions(blips)
         {
-            blipFunc.calculateBlipPositions(blips, {x:200, y:200},0);
+            blipFunc.calculateBlipPositions(blips, {x:200, y:200},0,40);
         }
         it('when there is a only 1 blip on a ring with a radius of 40', function(){
             var blips =CreateBlips(1);

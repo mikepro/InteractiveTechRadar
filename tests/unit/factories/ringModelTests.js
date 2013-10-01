@@ -2,7 +2,7 @@ describe('Ring model',function(){
     var ringModel = {};
     beforeEach(module('TechRadarApp'));
     beforeEach(inject(function(RingModel){
-        ringModel = new RingModel('test', 0,40,{x:200,y:200});
+        ringModel = new RingModel('test', 40,80,{x:200,y:200});
     }));
     describe('should be able to ',function(){
         it('add two blips to the model',function(){

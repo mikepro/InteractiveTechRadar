@@ -50,22 +50,22 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
        }
     }
 
-    this.calculateBlipPositions = function(blips, center, group)
+    this.calculateBlipPositions = function(blips, center, group, startingRadius)
     {
-        this.localRadius = 40;
+        this.localRadius =startingRadius;
         var blipPosition =0;
         var radiusNumber=1;
         var offset = 90*group;
         angular.forEach(blips, function(value, key){
                 blipPosition = blipPosition +1; 
                 var itteration = key +1;
-                var totalBlipsForIter = this.calculateNumberOfBlipsForRing(40, 10, radiusNumber, 12.563, blips.length);
+                var totalBlipsForIter = this.calculateNumberOfBlipsForRing(startingRadius, 10, radiusNumber, 12.563, blips.length);
                 var totalMaxBlipsForIter = this.calculateMaxNumberOfBlipsForRing(this.localRadius, 12.563, 4);
                 if(blipPosition %(totalMaxBlipsForIter+1) ==0)
                 {
                     this.localRadius = this.localRadius + 10;
                     radiusNumber = radiusNumber +1;
-                    totalBlipsForIter = this.calculateNumberOfBlipsForRing(40, 10,radiusNumber, 12.563, blips.length);
+                    totalBlipsForIter = this.calculateNumberOfBlipsForRing(startingRadius, 10,radiusNumber, 12.563, blips.length);
                     totalMaxBlipsForIter = this.calculateMaxNumberOfBlipsForRing(this.localRadius, 12.563, 4);
                     blipPosition=1; 
                 }

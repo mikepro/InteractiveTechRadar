@@ -21,7 +21,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
                 self.groupedBlips[group] =[];
             }
             self.groupedBlips[group].push(blipModel);
-            blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center, group);
+            blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center, group,self.startingRadius);
             setRadius();
         }
         self.removeBlip = function()
@@ -29,7 +29,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
             var removedBlip = self.blips.pop();
             var groupToCalculate = removedBlip.group;
             self.groupedBlips[groupToCalculate].pop();
-            blipFunctions.calculateBlipPositions(self.groupedBlips[groupToCalculate],center,groupToCalculate);
+            blipFunctions.calculateBlipPositions(self.groupedBlips[groupToCalculate],center,groupToCalculate,self.startingRadius);
             setRadius();
         }
 
@@ -38,6 +38,16 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
             self.startingRadius = self.startingRadius + offset;
             setTextPosition(self.radius);
             offsetClickableRing();
+            offsetAllBlips();
+        }
+
+        function offsetAllBlips()
+        {
+            var numberOfGroups = 4;
+            for(var group=0; group< numberOfGroups;group++)
+            {
+                blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center,group,self.startingRadius);
+            }
         }
 
         function offsetClickableRing(){
@@ -47,7 +57,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
         function setTextPosition(radius)
         {
             self.y = center.y;
-            self.x = center.x + radius -40;
+            self.x = center.x + radius -80;
         }
 
         function setRadius()
@@ -56,7 +66,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
             {
                 var radiusSoFar = 0;
                 angular.forEach(self.groupedBlips, function(value, index){
-                   var currentRadius = blipFunctions.calculateLargestRadius(radius -40,10,12.563,value.length,4) + 10; 
+                   var currentRadius = blipFunctions.calculateLargestRadius(self.startingRadius,10,12.563,value.length,4) + 10; 
                    if(currentRadius >radiusSoFar)
                     {
                         radiusSoFar= currentRadius;

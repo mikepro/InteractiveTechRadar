@@ -9,9 +9,9 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
         self.zoomLevel =1;
         self.init = function()
         {
-            self.addRing(new RingModel('Adopt', 0, 80, self.centerCords));
-            self.addRing(new RingModel('Trial', 80,160, self.centerCords));
-            self.addRing(new RingModel('Candidate', 160, 240, self.centerCords));
+            self.addRing(new RingModel('Adopt', 10, 80, self.centerCords));
+            self.addRing(new RingModel('Trial', 90,160, self.centerCords));
+            self.addRing(new RingModel('Candidate', 170, 240, self.centerCords));
 
             self.rings[0].addBlip(new BlipModel('1', 'test', true,0));
             self.rings[0].addBlip(new BlipModel('2', 'test', true,0));
