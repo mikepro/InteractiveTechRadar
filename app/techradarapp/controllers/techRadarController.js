@@ -28,8 +28,10 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel', fun
     $scope.zoomOut = function(){
         $scope.model.zoomOut();
     }
-    $scope.sayHi = function(index, ring)
+    $scope.selectRingAndGroup= function(index, ring)
     {
-        alert('You clicked group ' + index + ' in the '+ring.title+' ring');
+        $scope.model.selectedRingAndGroup.group =index;
+        $scope.model.selectedRingAndGroup.ring = ring;
+        $scope.model.selectedRingAndGroup.selected = true;
     }
 }]);

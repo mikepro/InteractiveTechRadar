@@ -17,6 +17,8 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
             self.rings[0].addBlip(new BlipModel('2', 'test', true,0));
         }
         
+        self.selectedRingAndGroup = {ring: undefined, group: undefined, selected: false};
+        
         self.zoomIn = function()
         {
             self.zoomLevel = self.zoomLevel + 0.10;
@@ -30,7 +32,6 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
                 self.zoomLevel = self.zoomLevel - 0.10;
             }
         }
-    
 
         self.addRing = function(ringModel)
         {
