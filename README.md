@@ -1,7 +1,7 @@
 InteractiveTechRadar
 ====================
 
-This is my attempt at creating a Interactive Tech Radar inspired by the tech radar that thoughtworks produce http://www.thoughtworks.com/radar using clever maths, svg and the superheroic powers of angularjs.
+This is my attempt at creating a Interactive Tech Radar inspired by thoughtworks http://www.thoughtworks.com/radar using clever maths, svg and the superheroic powers of angularjs.
 Okay so the maths isnt that clever just basic trignomotry that I have tried to teach myself.
 
 Background
