@@ -48,6 +48,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
             {
                 blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center,group,self.startingRadius);
             }
+            setRadius();
         }
 
         function offsetClickableRing(){
