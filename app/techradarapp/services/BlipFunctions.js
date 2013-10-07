@@ -76,7 +76,9 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
                     totalMaxBlipsForIter = this.calculateMaxNumberOfBlipsForRing(this.localRadius, 12.563, 4);
                     blipPosition=1; 
                 }
-                var degreesPadding = this.padRadiusWith(this.localRadius, 10);
+
+                var padding = 10;
+                var degreesPadding = (this.localRadius <= padding)? 0 :this.padRadiusWith(this.localRadius,padding);
                 var numberOfDegressForEachBlip = (90-degreesPadding) / ( totalBlipsForIter>1? totalBlipsForIter: 2);
                 var angle = (blipPosition * numberOfDegressForEachBlip) - offset;
                 var newY = Math.sin(trigFunctions.ConvertDegToRad(angle)) * this.localRadius;
