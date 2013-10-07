@@ -15,8 +15,8 @@ describe('Ring model',function(){
             it('calculate blip postion after adding a blip to the model',function(){
                 ringModel.addBlip({x:1,y:1,group:0});
                 var firstBlipPosition = ringModel.blips[0]
-                expect(firstBlipPosition.x).toBe(230.642);
-                expect(firstBlipPosition.y).toBe(174.288);
+                expect(firstBlipPosition.x).toBe(231.623);
+                expect(firstBlipPosition.y).toBe(175.505);
             });
 
             it('remove blips',function(){
@@ -32,8 +32,8 @@ describe('Ring model',function(){
                 ringModel.removeBlip();
 
                 var firstBlipPosition = ringModel.blips[0]
-                expect(firstBlipPosition.x).toBe(230.642);
-                expect(firstBlipPosition.y).toBe(174.288);
+                expect(firstBlipPosition.x).toBe(231.623);
+                expect(firstBlipPosition.y).toBe(175.505);
             });
     });
     it('Should group blips when adding',function(){

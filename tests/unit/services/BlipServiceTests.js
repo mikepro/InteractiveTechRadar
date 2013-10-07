@@ -80,8 +80,8 @@ describe('Blip functions',function(){
             var blips =CreateBlips(1);
             calculateBlipPositions(blips);
             var firstBlipPosition = blips[0]; 
-            expect(firstBlipPosition.x).toBe(230.642);
-            expect(firstBlipPosition.y).toBe(174.288);
+            expect(firstBlipPosition.x).toBe(231.623);
+            expect(firstBlipPosition.y).toBe(175.505);
         });
 
         it('when there is a only 2 blip on a ring with a radius of 40', function(){
@@ -89,12 +89,12 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
-            expect(firstBlipPosition.x).toBe(230.642);
-            expect(firstBlipPosition.y).toBe(174.288);
+            expect(firstBlipPosition.x).toBe(231.623);
+            expect(firstBlipPosition.y).toBe(175.505);
 
             var secondBlipPosition = blips[1];
-            expect(secondBlipPosition.x).toBe(206.946);
-            expect(secondBlipPosition.y).toBe(160.608);
+            expect(secondBlipPosition.x).toBe(210);
+            expect(secondBlipPosition.y).toBe(161.27);
         });
 
         it('when there is a only 3 blip on a ring with a radius of 40', function(){
@@ -102,16 +102,16 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
-            expect(firstBlipPosition.x).toBe(235.745);
-            expect(firstBlipPosition.y).toBe(182.048);
+            expect(firstBlipPosition.x).toBe(236.201);
+            expect(firstBlipPosition.y).toBe(182.985);
 
             var secondBlipPosition = blips[1];
-            expect(secondBlipPosition.x).toBe(223.886);
-            expect(secondBlipPosition.y).toBe(167.915);
+            expect(secondBlipPosition.x).toBe(225.525);
+            expect(secondBlipPosition.y).toBe(169.202);
 
             var thirdPosition = blips[2];
-            expect(thirdPosition.x).toBe(206.946);
-            expect(thirdPosition.y).toBe(160.608);
+            expect(thirdPosition.x).toBe(210);
+            expect(thirdPosition.y).toBe(161.27);
         });
 
         it('when there are 4 blips on a ring with a radius of 40', function(){
@@ -119,20 +119,20 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
-            expect(firstBlipPosition.x).toBe(237.588);
-            expect(firstBlipPosition.y).toBe(186.319);
+            expect(firstBlipPosition.x).toBe(237.848);
+            expect(firstBlipPosition.y).toBe(187.056);
 
             var secondBlipPosition = blips[1];
-            expect(secondBlipPosition.x).toBe(230.642);
-            expect(secondBlipPosition.y).toBe(174.288);
+            expect(secondBlipPosition.x).toBe(231.623);
+            expect(secondBlipPosition.y).toBe(175.505);
 
             var thirdPosition = blips[2];
-            expect(thirdPosition.x).toBe(220);
-            expect(thirdPosition.y).toBe(165.359);
+            expect(thirdPosition.x).toBe(221.995);
+            expect(thirdPosition.y).toBe(166.59);
 
             var fourthPosition = blips[3];
-            expect(fourthPosition.x).toBe(206.946);
-            expect(fourthPosition.y).toBe(160.608);
+            expect(fourthPosition.x).toBe(210);
+            expect(fourthPosition.y).toBe(161.27);
         });
 
         it('when there are 5 blips on a ring with a radius of 40', function(){
@@ -140,24 +140,24 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
-            expect(firstBlipPosition.x).toBe(238.45);
-            expect(firstBlipPosition.y).toBe(188.975);
+            expect(firstBlipPosition.x).toBe(238.618);
+            expect(firstBlipPosition.y).toBe(189.577);
 
             var secondBlipPosition = blips[1];
-            expect(secondBlipPosition.x).toBe(233.922);
-            expect(secondBlipPosition.y).toBe(178.803);
+            expect(secondBlipPosition.x).toBe(234.568);
+            expect(secondBlipPosition.y).toBe(179.874);
 
             var thirdPosition = blips[2];
-            expect(thirdPosition.x).toBe(226.765);
-            expect(thirdPosition.y).toBe(170.274);
+            expect(thirdPosition.x).toBe(228.129);
+            expect(thirdPosition.y).toBe(171.561);
 
             var fourthPosition = blips[3];
-            expect(fourthPosition.x).toBe(217.535);
-            expect(fourthPosition.y).toBe(164.048);
+            expect(fourthPosition.x).toBe(219.747);
+            expect(fourthPosition.y).toBe(165.214);
 
             var fifthPosition = blips[4];
-            expect(fifthPosition.x).toBe(206.946);
-            expect(fifthPosition.y).toBe(160.608);
+            expect(fifthPosition.x).toBe(210);
+            expect(fifthPosition.y).toBe(161.27);
         });
 
         it('when there are 6 blips on a ring with a radius of 40 the first 5 blips should have the same positions as if there were only 5 blips', function(){
@@ -165,28 +165,28 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var firstBlipPosition = blips[0]; 
-            expect(firstBlipPosition.x).toBe(238.45);
-            expect(firstBlipPosition.y).toBe(188.975);
+            expect(firstBlipPosition.x).toBe(238.618);
+            expect(firstBlipPosition.y).toBe(189.577);
 
             var secondBlipPosition = blips[1];
-            expect(secondBlipPosition.x).toBe(233.922);
-            expect(secondBlipPosition.y).toBe(178.803);
+            expect(secondBlipPosition.x).toBe(234.568);
+            expect(secondBlipPosition.y).toBe(179.874);
 
             var thirdPosition = blips[2];
-            expect(thirdPosition.x).toBe(226.765);
-            expect(thirdPosition.y).toBe(170.274);
+            expect(thirdPosition.x).toBe(228.129);
+            expect(thirdPosition.y).toBe(171.561);
 
             var fourthPosition = blips[3];
-            expect(fourthPosition.x).toBe(217.535);
-            expect(fourthPosition.y).toBe(164.048);
+            expect(fourthPosition.x).toBe(219.747);
+            expect(fourthPosition.y).toBe(165.214);
 
             var fifthPosition = blips[4];
-            expect(fifthPosition.x).toBe(206.946);
-            expect(fifthPosition.y).toBe(160.608);
+            expect(fifthPosition.x).toBe(210);
+            expect(fifthPosition.y).toBe(161.27);
 
             var sixthPostion = blips[5];
-            expect(sixthPostion.x).toBe(238.302);
-            expect(sixthPostion.y).toBe(167.861);
+            expect(sixthPostion.x).toBe(238.73);
+            expect(sixthPostion.y).toBe(168.377);
         });
 
         it('when there are 7 blips on a ring with a radius of 40 blips 6 and 7 should be set accordingly',function(){
@@ -194,12 +194,12 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
-            expect(sixthPostion.x).toBe(238.302);
-            expect(sixthPostion.y).toBe(167.861);
+            expect(sixthPostion.x).toBe(238.73);
+            expect(sixthPostion.y).toBe(168.377);
 
             var seventhPositon= blips[6];
-            expect(seventhPositon.x).toBe(208.682);
-            expect(seventhPositon.y).toBe(150.76);
+            expect(seventhPositon.x).toBe(210);
+            expect(seventhPositon.y).toBe(151.01);
         });
 
         it('when there are 8 blips on a ring with a radius of 40 blips 6, 7,8 should be set accordingly',function(){
@@ -207,16 +207,16 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
-            expect(sixthPostion.x).toBe(244.682);
-            expect(sixthPostion.y).toBe(177.56);
+            expect(sixthPostion.x).toBe(244.88);
+            expect(sixthPostion.y).toBe(177.96);
 
             var seventhPositon= blips[6];
-            expect(seventhPositon.x).toBe(229.858);
-            expect(seventhPositon.y).toBe(159.894);
+            expect(seventhPositon.x).toBe(230.57);
+            expect(seventhPositon.y).toBe(160.434);
 
             var eightPosition= blips[7];
-            expect(seventhPositon.x).toBe(229.858);
-            expect(seventhPositon.y).toBe(159.894);
+            expect(seventhPositon.x).toBe(230.57);
+            expect(seventhPositon.y).toBe(160.434);
         });
 
         it('when there are 9 blips on a ring with a radius of 40 blips 6, 7,8 and 9 should be set accordingly',function(){
@@ -224,20 +224,20 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
-            expect(sixthPostion.x).toBe(246.985);
-            expect(sixthPostion.y).toBe(182.899);
+            expect(sixthPostion.x).toBe(247.098);
+            expect(sixthPostion.y).toBe(183.214);
 
             var seventhPositon= blips[6];
-            expect(seventhPositon.x).toBe(238.302);
-            expect(seventhPositon.y).toBe(167.861);
+            expect(seventhPositon.x).toBe(238.73);
+            expect(seventhPositon.y).toBe(168.377);
 
             var eightPosition= blips[7];
-            expect(seventhPositon.x).toBe(238.302);
-            expect(seventhPositon.y).toBe(167.861);
+            expect(seventhPositon.x).toBe(238.73);
+            expect(seventhPositon.y).toBe(168.377);
 
             var nithPosition= blips[8];
-            expect(nithPosition.x).toBe(208.682);
-            expect(seventhPositon.y).toBe(167.861);
+            expect(nithPosition.x).toBe(210);
+            expect(seventhPositon.y).toBe(168.377);
         });
 
         it('when there are 10 blips on a ring with a radius of 40 blips 6, 7,8 9 and 10 should be set accordingly',function(){
@@ -245,24 +245,24 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
-            expect(sixthPostion.x).toBe(248.063);
-            expect(sixthPostion.y).toBe(186.218);
+            expect(sixthPostion.x).toBe(248.136);
+            expect(sixthPostion.y).toBe(186.476);
 
             var seventhPositon= blips[6];
-            expect(seventhPositon.x).toBe(242.402);
-            expect(seventhPositon.y).toBe(173.504);
+            expect(seventhPositon.x).toBe(242.684);
+            expect(seventhPositon.y).toBe(173.961);
 
             var eightPosition= blips[7];
-            expect(seventhPositon.x).toBe(242.402);
-            expect(seventhPositon.y).toBe(173.504);
+            expect(seventhPositon.x).toBe(242.684);
+            expect(seventhPositon.y).toBe(173.961);
 
             var nithPosition= blips[8];
-            expect(nithPosition.x).toBe(221.919);
-            expect(seventhPositon.y).toBe(173.504);
+            expect(nithPosition.x).toBe(222.878);
+            expect(seventhPositon.y).toBe(173.961);
 
             var tenthPostion= blips[9];
-            expect(tenthPostion.x).toBe(208.682);
-            expect(tenthPostion.y).toBe(150.76);
+            expect(tenthPostion.x).toBe(210);
+            expect(tenthPostion.y).toBe(151.01);
         });
 
         it('when there are 11 blips on a ring with a radius of 40 blips 6, 7,8 9, 10 and 11 should be set accordingly',function(){
@@ -270,28 +270,28 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
-            expect(sixthPostion.x).toBe(248.652);
-            expect(sixthPostion.y).toBe(188.469);
+            expect(sixthPostion.x).toBe(248.703);
+            expect(sixthPostion.y).toBe(188.687);
 
             var seventhPositon= blips[6];
-            expect(seventhPositon.x).toBe(244.682);
-            expect(seventhPositon.y).toBe(177.56);
+            expect(seventhPositon.x).toBe(244.88);
+            expect(seventhPositon.y).toBe(177.96);
 
             var eightPosition= blips[7];
-            expect(seventhPositon.x).toBe(244.682);
-            expect(seventhPositon.y).toBe(177.56);
+            expect(seventhPositon.x).toBe(244.88);
+            expect(seventhPositon.y).toBe(177.96);
 
             var nithPosition= blips[8];
-            expect(nithPosition.x).toBe(229.858);
-            expect(seventhPositon.y).toBe(177.56);
+            expect(nithPosition.x).toBe(230.57);
+            expect(seventhPositon.y).toBe(177.96);
 
             var tenthPostion= blips[9];
-            expect(tenthPostion.x).toBe(219.804);
-            expect(tenthPostion.y).toBe(154.089);
+            expect(tenthPostion.x).toBe(220.825);
+            expect(tenthPostion.y).toBe(154.543);
 
             var eleventhPostion = blips[10];
-            expect(eleventhPostion.x).toBe(208.682);
-            expect(eleventhPostion.y).toBe(150.76);
+            expect(eleventhPostion.x).toBe(210);
+            expect(eleventhPostion.y).toBe(151.01);
         });
 
         it('when there are 12 blips on a ring with a radius of 40 blips 6, 7,8 9, 10 and 11 should not change',function(){
@@ -299,28 +299,28 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var sixthPostion = blips[5];
-            expect(sixthPostion.x).toBe(248.652);
-            expect(sixthPostion.y).toBe(188.469);
+            expect(sixthPostion.x).toBe(248.703);
+            expect(sixthPostion.y).toBe(188.687);
 
             var seventhPositon= blips[6];
-            expect(seventhPositon.x).toBe(244.682);
-            expect(seventhPositon.y).toBe(177.56);
+            expect(seventhPositon.x).toBe(244.88);
+            expect(seventhPositon.y).toBe(177.96);
 
             var eightPosition= blips[7];
-            expect(seventhPositon.x).toBe(244.682);
-            expect(seventhPositon.y).toBe(177.56);
+            expect(seventhPositon.x).toBe(244.88);
+            expect(seventhPositon.y).toBe(177.96);
 
             var nithPosition= blips[8];
-            expect(nithPosition.x).toBe(229.858);
-            expect(seventhPositon.y).toBe(177.56);
+            expect(nithPosition.x).toBe(230.57);
+            expect(seventhPositon.y).toBe(177.96);
 
             var tenthPostion= blips[9];
-            expect(tenthPostion.x).toBe(219.804);
-            expect(tenthPostion.y).toBe(154.089);
+            expect(tenthPostion.x).toBe(220.825);
+            expect(tenthPostion.y).toBe(154.543);
 
             var eleventhPostion = blips[10];
-            expect(eleventhPostion.x).toBe(208.682);
-            expect(eleventhPostion.y).toBe(150.76);
+            expect(eleventhPostion.x).toBe(210);
+            expect(eleventhPostion.y).toBe(151.01);
         });
 
         it('when there are 13 blips on a ring with a radius of 40', function(){
@@ -328,8 +328,8 @@ describe('Blip functions',function(){
             calculateBlipPositions(blips);
 
             var twelvePostion = blips[11];
-            expect(twelvePostion.x).toBe(245.963);
-            expect(twelvePostion.y).toBe(161.433);
+            expect(twelvePostion.x).toBe(245.826);
+            expect(twelvePostion.y).toBe(161.27);
         })
     });
 });

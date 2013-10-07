@@ -50,6 +50,13 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
        }
     }
 
+    this.padRadiusWith = function(radius, padding)
+    {
+        var sine = padding / radius;
+        var radians = Math.asin(sine);
+        return trigFunctions.ConvertRadToDeg(radians);
+    }
+
     this.calculateBlipPositions = function(blips, center, group, startingRadius)
     {
         this.localRadius =startingRadius;
@@ -69,7 +76,8 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
                     totalMaxBlipsForIter = this.calculateMaxNumberOfBlipsForRing(this.localRadius, 12.563, 4);
                     blipPosition=1; 
                 }
-                var numberOfDegressForEachBlip = 80 / ( totalBlipsForIter>1? totalBlipsForIter: 2);
+                var degreesPadding = this.padRadiusWith(this.localRadius, 10);
+                var numberOfDegressForEachBlip = (90-degreesPadding) / ( totalBlipsForIter>1? totalBlipsForIter: 2);
                 var angle = (blipPosition * numberOfDegressForEachBlip) - offset;
                 var newY = Math.sin(trigFunctions.ConvertDegToRad(angle)) * this.localRadius;
                 var newX = Math.cos(trigFunctions.ConvertDegToRad(angle)) * this.localRadius;
