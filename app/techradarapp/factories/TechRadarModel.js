@@ -44,6 +44,21 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
             self.groupLines = computeGroupLines();
         }
 
+        self.allBlipsForGroup = function(group)
+        {
+            var blipsInGroup = [];
+            for(var r =0; r< self.rings.length; r++)
+            {
+                var currentRing = self.rings[r];
+                var blipsForCurrentRingAndGroup = currentRing.groupedBlips[group];
+                if(blipsForCurrentRingAndGroup)
+                {
+                    blipsInGroup = blipsInGroup.concat(blipsForCurrentRingAndGroup);
+                }
+            }
+            return blipsInGroup;
+        }
+
         rootScope.$on('radiusChange',function(name, data){
             var indexRingChanged = self.rings.indexOf(data.ring);
             var radiusInc = data.inc;

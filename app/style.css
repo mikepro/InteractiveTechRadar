@@ -1,0 +1,46 @@
+.legend
+{
+    border-color:black;
+    border-width:2px;
+    border-style: solid;
+
+    width: 230px;
+    height: 270px;
+    overflow:auto;
+}
+svg
+{
+    height: 600px;
+}
+#group0
+{
+    position: absolute;
+    top: 0px;
+    left: 800px;
+}
+#group1
+{
+    position: absolute;
+    top: 300px;
+    left: 800px;
+}
+#group2
+{
+    position: absolute;
+    top: 350px;
+    left: 0px;
+}
+#group3
+{
+    position: absolute;
+    top: 50px;
+    left: 0px;
+}
+
+.addNewBlip
+{
+    position: relative;
+    top: -100px;
+    left: 300px;
+
+}

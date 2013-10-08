@@ -18,7 +18,8 @@ app.service('TrigFunctions', function()
         {
             var sine = padding / radius;
             var radians = Math.asin(sine);
-            return trigFunctions.ConvertRadToDeg(radians).toFixed(4);
+            var degres = trigFunctions.ConvertRadToDeg(radians);
+            return this.RoundToDecimalPlaces(degres,3);
         }
 
         this.RoundToDecimalPlaces = function(number, decimalPlaces)

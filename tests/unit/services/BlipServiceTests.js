@@ -107,7 +107,7 @@ describe('Blip functions',function(){
 
             var secondBlipPosition = blips[1];
             expect(secondBlipPosition.x).toBe(225.525);
-            expect(secondBlipPosition.y).toBe(169.202);
+            expect(secondBlipPosition.y).toBe(169.203);
 
             var thirdPosition = blips[2];
             expect(thirdPosition.x).toBe(210);
@@ -149,7 +149,7 @@ describe('Blip functions',function(){
 
             var thirdPosition = blips[2];
             expect(thirdPosition.x).toBe(228.129);
-            expect(thirdPosition.y).toBe(171.561);
+            expect(thirdPosition.y).toBe(171.562);
 
             var fourthPosition = blips[3];
             expect(fourthPosition.x).toBe(219.747);
@@ -174,7 +174,7 @@ describe('Blip functions',function(){
 
             var thirdPosition = blips[2];
             expect(thirdPosition.x).toBe(228.129);
-            expect(thirdPosition.y).toBe(171.561);
+            expect(thirdPosition.y).toBe(171.562);
 
             var fourthPosition = blips[3];
             expect(fourthPosition.x).toBe(219.747);
