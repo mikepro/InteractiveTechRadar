@@ -1,0 +1,27 @@
+.svg-clickablering
+{
+    stroke-opacity:0;
+    stroke:blue;
+    fill:none;
+}
+.svg-ring
+{
+    stroke:black;
+    stroke-width:2;
+    fill:none;
+}
+.svg-blip
+{
+    stroke:black;
+    stroke-width:2;
+    fill:black;
+}
+.svg-ringtext
+{
+    fill:black;
+}
+.svg-groupmarkers
+{
+    stroke:black;
+    stroke-width:2;
+}
