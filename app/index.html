@@ -29,32 +29,32 @@
         <div class="legend" id="group0">
             <h1>Group 0 blips</h1>
             <ul>
-                <li ng-repeat="blip in model.allBlipsForGroup(0)| filter:{name:searchTerm||undefined}">{{blip.name}}</li>
+                <li ng-repeat="blip in model.allBlipsForGroup(0)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group1">
             <h1>Group 1 blips</h1>
             <ul>
-                <li ng-repeat="blip in model.allBlipsForGroup(1)| filter:{name:searchTerm||undefined}">{{blip.name}}</li>
+                <li ng-repeat="blip in model.allBlipsForGroup(1)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group2">
             <h1>Group 2 blips</h1>
             <ul>
-                <li ng-repeat="blip in model.allBlipsForGroup(2)| filter:{name:searchTerm||undefined}">{{blip.name}}</li>
+                <li ng-repeat="blip in model.allBlipsForGroup(2)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group3">
             <h1>Group 3 blips</h1>
             <ul>
-                <li ng-repeat="blip in model.allBlipsForGroup(3)| filter:{name:searchTerm||undefined}">{{blip.name}}</li>
+                <li ng-repeat="blip in model.allBlipsForGroup(3)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="addNewBlip" style="width:300px" ng-controller="SelectedRingGroupController" ng-show="isVisible()">
             <h1>Ring {{ringName()}} for group{{group()}} </h1>
             <label>Id</label><input type="text" ng-model="id"/></br>
             <label>Title</label><input type="text" ng-model="name"/></br>
-            <label>Is New</label><input type="text" ng-model="isNew"/></br>
+            <label>Is New</label><input type="checkbox" ng-model="isNew"/></br>
             <input type="button" ng-click="cancel()" value="Cancel"/>
             <input type="button" ng-click="save()" value="Save and close"/>
             <input type="button" ng-click="saveAndAdd()" value="Save and add"/>
