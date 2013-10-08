@@ -50,16 +50,11 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
        }
     }
 
-    this.padRadiusWith = function(radius, padding)
-    {
-        var sine = padding / radius;
-        var radians = Math.asin(sine);
-        return trigFunctions.ConvertRadToDeg(radians);
-    }
 
     this.calculateBlipPositions = function(blips, center, group, startingRadius)
     {
         this.localRadius =startingRadius;
+        self.trigFunctions = trigFunctions;
         var blipPosition =0;
         var radiusNumber=1;
         var offset = 90*group;
@@ -78,7 +73,7 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
                 }
 
                 var padding = 10;
-                var degreesPadding = (this.localRadius <= padding)? 0 :this.padRadiusWith(this.localRadius,padding);
+                var degreesPadding = (this.localRadius <= padding)? 0 :self.trigFunctions.padRadiusWith(this.localRadius,padding);
                 var numberOfDegressForEachBlip = (90-degreesPadding) / ( totalBlipsForIter>1? totalBlipsForIter: 2);
                 var angle = (blipPosition * numberOfDegressForEachBlip) - offset;
                 var newY = Math.sin(trigFunctions.ConvertDegToRad(angle)) * this.localRadius;

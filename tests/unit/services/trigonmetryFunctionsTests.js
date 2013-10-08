@@ -19,4 +19,18 @@ describe('Should be able to convert ', function(){
         var threePlaces = trigFunc.RoundToThreeDecimalPlaces(3.5969);
         expect(threePlaces).toBe(3.597);
     });
+    it('should work out the correct amount of degress to accomidate padding with radius 30', function(){
+        var radius = 30;
+        var padding = 10;
+        var degress = trigFunc.padRadiusWith(radius,padding);
+        expect(degress).toBe(19.471);
+
+    });
+    it('should work out the correct amount of degress to accomidate padding with radius 60', function(){
+        var radius = 60;
+        var padding = 10;
+        var degress = trigFunc.padRadiusWith(radius,padding);
+        expect(degress).toBe(9.594);
+
+    });
 })

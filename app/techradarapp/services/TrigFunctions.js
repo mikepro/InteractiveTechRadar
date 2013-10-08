@@ -14,6 +14,13 @@ app.service('TrigFunctions', function()
             return this.RoundToDecimalPlaces(number, 3);
         }
 
+        this.padRadiusWith = function(radius, padding)
+        {
+            var sine = padding / radius;
+            var radians = Math.asin(sine);
+            return trigFunctions.ConvertRadToDeg(radians).toFixed(4);
+        }
+
         this.RoundToDecimalPlaces = function(number, decimalPlaces)
         {
             var multiplier = Math.pow(10,decimalPlaces);
