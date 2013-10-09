@@ -46,7 +46,7 @@ svg
 }
 .highlighted
 {
-    color: green;
+    color: blue;
     font-weight: bold;
 }
 .selectedBlip

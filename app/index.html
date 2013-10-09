@@ -30,25 +30,25 @@
         <div class="legend" id="group0">
             <h1>Group 0 blips</h1>
             <ul>
-                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(0)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
+                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(0)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group1">
             <h1>Group 1 blips</h1>
             <ul>
-                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(1)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
+                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(1)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group2">
             <h1>Group 2 blips</h1>
             <ul>
-                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(2)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
+                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(2)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group3">
             <h1>Group 3 blips</h1>
             <ul>
-                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(3)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
+                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(3)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="addNewBlip" style="width:300px" ng-controller="SelectedRingGroupController" ng-show="isVisible()">
