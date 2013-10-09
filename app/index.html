@@ -22,7 +22,7 @@
                 <g ng-repeat="ring in model.rings">
                     <path class="svg-clickablering" ng-repeat="x in ring.clickableRings"  stroke-width="{{x.width}}" ng-attr-d="{{x.svgPath}}" ng-click="selectRingAndGroup($index,ring)"/>
                     <circle class="svg-ring" cx="500" cy="250" ng-attr-r="{{ring.radius}}" />
-                    <circle class="svg-blip" ng-repeat="blip in ring.blips | filter:{name:searchTerm||undefined}" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2"/>
+                    <circle class="svg-blip" ng-attr-highlighted="{{model.isHighlightedBlip(blip)?'true':'false'}}" ng-attr-blipselected="{{model.isSelectedBlip(blip)?'true':'false'}}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)" ng-repeat="blip in ring.blips | filter:{name:searchTerm||undefined}" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2"/>
                     <text class="svg-ringtext" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}">{{ring.title}}</text>
                 </g>
             </g>
@@ -30,25 +30,25 @@
         <div class="legend" id="group0">
             <h1>Group 0 blips</h1>
             <ul>
-                <li ng-repeat="blip in model.allBlipsForGroup(0)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
+                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(0)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group1">
             <h1>Group 1 blips</h1>
             <ul>
-                <li ng-repeat="blip in model.allBlipsForGroup(1)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
+                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(1)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group2">
             <h1>Group 2 blips</h1>
             <ul>
-                <li ng-repeat="blip in model.allBlipsForGroup(2)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
+                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(2)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="legend" id="group3">
             <h1>Group 3 blips</h1>
             <ul>
-                <li ng-repeat="blip in model.allBlipsForGroup(3)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
+                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(3)| filter:{name:searchTerm||undefined}">({{blip.id}}) {{blip.name}}</li>
             </ul>
         </div>
         <div class="addNewBlip" style="width:300px" ng-controller="SelectedRingGroupController" ng-show="isVisible()">

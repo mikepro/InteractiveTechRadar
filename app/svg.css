@@ -25,3 +25,14 @@
     stroke:black;
     stroke-width:2;
 }
+[highlighted='true']
+{
+    fill: green !important;
+    stroke: green !important;
+}
+[blipselected='true']
+{
+    fill: red !important;
+    stroke: red !important;
+}
+

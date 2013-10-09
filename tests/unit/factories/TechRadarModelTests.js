@@ -117,4 +117,51 @@ describe('Tech Radar Model',function(){
             expect(allBlipsForGroup3[0]).toBe(blip);
         });
     });
+    describe('interacting with a blip',function(){
+        it('should be able to mark a blip as selected',function(){
+            var blip = new blipModel('some id', 'some name', false, 3);
+            techRadarModel.selectedBlip = blip;
+            expect(techRadarModel.isSelectedBlip(blip)).toBe(true);
+        });
+        it('should not indicate any random blip is selected',function(){
+            var blip = new blipModel('some id', 'some name', false, 3);
+            var blip2 = new blipModel('some id', 'some name', false, 3);
+            techRadarModel.selectedBlip = blip;
+            expect(techRadarModel.isSelectedBlip(blip2)).toBe(false);
+        });
+        it('should be possible to mark a new blip as selected',function(){
+            var blip = new blipModel('some id', 'some name', false, 3);
+            techRadarModel.selecteGivenBlip(blip);
+            expect(techRadarModel.selectedBlip).toBe(blip);
+        });
+        it('reselecting an already selected blip should deselect it',function(){
+            var blip = new blipModel('some id', 'some name', false, 3);
+            techRadarModel.selectedBlip = blip;
+            techRadarModel.selecteGivenBlip(blip);
+            expect(techRadarModel.selectedBlip).toBe(undefined);
+        });
+
+        it('should be possible to highlight a blip',function(){
+            var blip = new blipModel('some id', 'some name', false, 3);
+            techRadarModel.highlightedBlip = blip;
+            expect(techRadarModel.isHighlightedBlip(blip)).toBe(true);
+        });
+        it('should not highlight any random blip',function(){
+            var blip = new blipModel('some id', 'some name', false, 3);
+            var nonHighlightedBlip = new blipModel('some id', 'some name', false, 3);
+            techRadarModel.highlightedBlip = blip;
+            expect(techRadarModel.isHighlightedBlip(nonHighlightedBlip)).toBe(false);
+        });
+        it('should be possible to highlight a new blip',function(){
+            var blip = new blipModel('some id', 'some name', false, 3);
+            techRadarModel.highlightGivenBlip(blip);
+            expect(techRadarModel.highlightedBlip).toBe(blip);
+        });
+        it('should be possible to remove all highlighting',function(){
+            var blip = new blipModel('some id', 'some name', false, 3);
+            techRadarModel.highlightedBlip = blip;
+            techRadarModel.clearHighlightedBlip();
+            expect(techRadarModel.highlightedBlip).toBe(undefined);
+        });
+    });
 });

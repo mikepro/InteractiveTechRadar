@@ -44,3 +44,13 @@ svg
     left: 300px;
 
 }
+.highlighted
+{
+    color: green;
+    font-weight: bold;
+}
+.selectedBlip
+{
+    color: red;
+    font-weight: bold;
+}

@@ -7,6 +7,8 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
         self.centerCords = {'x':centerX, 'y':centerY}
         self.groupLines = [];
         self.zoomLevel =1;
+        self.selectedBlip ={};
+        self.highlightedBlip ={};
         self.init = function()
         {
             self.addRing(new RingModel('Adopt', 10, 80, self.centerCords));
@@ -15,6 +17,32 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
 
             self.rings[0].addBlip(new BlipModel('1', 'test', true,0));
             self.rings[0].addBlip(new BlipModel('2', 'test', true,0));
+        }
+        self.isSelectedBlip = function(blip)
+        {
+            return self.selectedBlip === blip;
+        }
+        self.isHighlightedBlip = function(blip)
+        {
+            return self.highlightedBlip === blip;
+        }
+        self.highlightGivenBlip = function(blip)
+        {
+            self.highlightedBlip = blip;
+        }
+        self.clearHighlightedBlip = function()
+        {
+            self.highlightedBlip = undefined;
+        }
+
+        self.selecteGivenBlip= function(blip)
+        {
+            if(self.selectedBlip ==blip)
+            {
+                self.selectedBlip = undefined;
+                return;
+            }
+            self.selectedBlip = blip;
         }
         
         self.selectedRingAndGroup = {ring: undefined, group: undefined, selected: false};
