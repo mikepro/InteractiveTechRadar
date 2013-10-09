@@ -11,12 +11,69 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
         self.highlightedBlip ={};
         self.init = function()
         {
-            self.addRing(new RingModel('Adopt', 10, 80, self.centerCords));
-            self.addRing(new RingModel('Trial', 90,160, self.centerCords));
-            self.addRing(new RingModel('Candidate', 170, 240, self.centerCords));
+            var addoptRing = new RingModel('Adopt', 10, 80, self.centerCords);
+            var trialRing = new RingModel('Trial', 90,160, self.centerCords);
+            var candiateRing = new RingModel('Candidate', 170, 240, self.centerCords);
+            self.addRing(addoptRing);
+            self.addRing(trialRing);
+            self.addRing(candiateRing);
 
-            self.rings[0].addBlip(new BlipModel('1', 'test', true,0));
-            self.rings[0].addBlip(new BlipModel('2', 'test', true,0));
+            addoptRing.addBlip(new BlipModel('1', 'AngularJS', true,0));
+            addoptRing.addBlip(new BlipModel('2', 'Knockout', true,0));
+            addoptRing.addBlip(new BlipModel('3', 'SASS', true,0));
+            addoptRing.addBlip(new BlipModel('4', 'Bootstrap', true,0));
+            addoptRing.addBlip(new BlipModel('5', 'SPA', true,0));
+            addoptRing.addBlip(new BlipModel('6', 'Jasmine', true,0));
+            addoptRing.addBlip(new BlipModel('7', 'Selenium Web Driver', true,0));
+            addoptRing.addBlip(new BlipModel('8', 'Jquery', true,0));
+            addoptRing.addBlip(new BlipModel('9', 'HTML', true,0));
+            addoptRing.addBlip(new BlipModel('10', 'CSS', true,0));
+
+            addoptRing.addBlip(new BlipModel('11', 'Rabbit', true,1));
+            addoptRing.addBlip(new BlipModel('12', 'Mongo', true,1));
+            addoptRing.addBlip(new BlipModel('13', 'Continuous Integration', true,1));
+            addoptRing.addBlip(new BlipModel('14', 'Git', true,1));
+            addoptRing.addBlip(new BlipModel('15', 'NUnit', true,1));
+            addoptRing.addBlip(new BlipModel('16', 'RhinoMocks', true,1));
+            addoptRing.addBlip(new BlipModel('17', 'Vagrant', true,1));
+            addoptRing.addBlip(new BlipModel('18', 'Virtual box', true,1));
+            addoptRing.addBlip(new BlipModel('19', 'Jenkins', true,1));
+            addoptRing.addBlip(new BlipModel('20', 'Continuous Delivery', true,1));
+            addoptRing.addBlip(new BlipModel('21', 'Splunk', true,1));
+            addoptRing.addBlip(new BlipModel('21', 'Configuration Managment', true,1));
+            addoptRing.addBlip(new BlipModel('22', 'Resharper', true,1));
+            addoptRing.addBlip(new BlipModel('23', 'Vim :-)', true,1));
+
+            addoptRing.addBlip(new BlipModel('24', 'Feature Toggles', true,2));
+            addoptRing.addBlip(new BlipModel('25', 'Ioslated components', true,2));
+            addoptRing.addBlip(new BlipModel('26', 'Inversion of control', true,2));
+            addoptRing.addBlip(new BlipModel('27', 'Poloygot programers', true,2));
+
+            addoptRing.addBlip(new BlipModel('28', 'C#', true,3));
+            addoptRing.addBlip(new BlipModel('29', 'Javascript', true,3));
+            addoptRing.addBlip(new BlipModel('30', 'Ruby', true,3));
+
+            trialRing.addBlip(new BlipModel('31', 'Plasma', true,0));
+            trialRing.addBlip(new BlipModel('32', 'Web storage', true,0));
+            trialRing.addBlip(new BlipModel('33', 'JqueryUI', true,0));
+
+            trialRing.addBlip(new BlipModel('34', 'Node', true,1));
+            trialRing.addBlip(new BlipModel('35', 'Mongose', true,1));
+            trialRing.addBlip(new BlipModel('36', 'NPM', true,1));
+
+            trialRing.addBlip(new BlipModel('37', 'Big visible metrics', true,2));
+            trialRing.addBlip(new BlipModel('38', 'Naztag bunnies', true,2));
+            trialRing.addBlip(new BlipModel('39', 'Build monitors', true,2));
+            trialRing.addBlip(new BlipModel('40', 'Custom dashboards', true,2));
+            trialRing.addBlip(new BlipModel('41', 'Information radiators', true,2));
+
+            candiateRing.addBlip(new BlipModel('42', 'Foundation', true,0));
+            candiateRing.addBlip(new BlipModel('43', 'Font Awesome', true,0));
+            candiateRing.addBlip(new BlipModel('45', 'CSS3', true,0));
+            candiateRing.addBlip(new BlipModel('46', 'CoffeScript', true,3));
+            candiateRing.addBlip(new BlipModel('47', 'F#', true,3));
+            candiateRing.addBlip(new BlipModel('48', 'Lisp', true,3));
+            candiateRing.addBlip(new BlipModel('49', 'Go', true,3));
         }
         self.isSelectedBlip = function(blip)
         {
