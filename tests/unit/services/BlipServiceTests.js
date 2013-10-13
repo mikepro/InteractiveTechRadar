@@ -31,32 +31,32 @@ describe('Blip functions',function(){
 
     describe('should be able to determine the number of blips on a given ring',function(){
         it('when on the first ring of a radius of 40, with just two items in total',function(){
-            var numberOfBlips = blipFunc.calculateNumberOfBlipsForRing(40,10,1,distancePerBlip,2)
+            var numberOfBlips = blipFunc.countNumberOfBlipsOnAgivenRing(40,10,1,distancePerBlip,2)
             expect(numberOfBlips).toBe(2);
         }); 
 
         it('when on the first ring of a radius of 40, with just three items in total',function(){
-            var numberOfBlips = blipFunc.calculateNumberOfBlipsForRing(40,10,1,distancePerBlip,3)
+            var numberOfBlips = blipFunc.countNumberOfBlipsOnAgivenRing(40,10,1,distancePerBlip,3)
             expect(numberOfBlips).toBe(3);
         }); 
 
         it('when on the first ring of a radius of 40, with five items in total',function(){
-            var numberOfBlips = blipFunc.calculateNumberOfBlipsForRing(40,10,1,distancePerBlip,5)
+            var numberOfBlips = blipFunc.countNumberOfBlipsOnAgivenRing(40,10,1,distancePerBlip,5)
             expect(numberOfBlips).toBe(5);
         }); 
 
         it('when on the first ring of a radius of 40, with six items in total',function(){
-            var numberOfBlips = blipFunc.calculateNumberOfBlipsForRing(40,10,1,distancePerBlip,5)
+            var numberOfBlips = blipFunc.countNumberOfBlipsOnAgivenRing(40,10,1,distancePerBlip,5)
             expect(numberOfBlips).toBe(5);
         }); 
 
         it('when on the second ring of a radius with first ring having a radius of 40, with 11 items in total',function(){
-            var numberOfBlips = blipFunc.calculateNumberOfBlipsForRing(40,10,2,distancePerBlip,11)
+            var numberOfBlips = blipFunc.countNumberOfBlipsOnAgivenRing(40,10,2,distancePerBlip,11)
             expect(numberOfBlips).toBe(6);
         }); 
 
         it('when on the third ring with the first ring having a radius of 40, with 12 items in total',function(){
-            var numberOfBlips = blipFunc.calculateNumberOfBlipsForRing(40,10,3,distancePerBlip,12)
+            var numberOfBlips = blipFunc.countNumberOfBlipsOnAgivenRing(40,10,3,distancePerBlip,12)
             expect(numberOfBlips).toBe(1);
         }); 
     });
