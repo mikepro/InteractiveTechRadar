@@ -1,6 +1,5 @@
 <html>
     <head>
-    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.min.js"></script>-->
     <script type="text/javascript" src="lib/angularJS/angular.min.js"></script>
     <script type="text/javascript" src="techradarapp/techapp.js"></script>
     <script type="text/javascript" src="techradarapp/controllers/techRadarController.js"></script>
@@ -11,10 +10,19 @@
     <script type="text/javascript" src="techradarapp/services/BlipFunctions.js"></script>
     <script type="text/javascript" src="techradarapp/services/ClickableRing.js"></script>
     <script type="text/javascript" src="techradarapp/controllers/SelectedRingGroupController.js"></script>
+    <script type="text/javascript" src="techradarapp/directive/directives.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" type="text/css" href="svg.css"/>
     </head>
     <body ng-app="TechRadarApp" ng-controller="TechRadarController">
+        <script type="text/ng-template" id="legend.html">
+            <div class="legend">
+                <h1>Group {{group}} blips</h1>
+                <ul>
+                    <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(group)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
+                </ul>
+            </div>
+        </script>
         <label>Search</label><input type="text" ng-model="searchTerm"/>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
             <g transform="scale({{model.zoomLevel}})">
@@ -27,30 +35,10 @@
                 </g>
             </g>
         </svg>
-        <div class="legend" id="group0">
-            <h1>Group 0 blips</h1>
-            <ul>
-                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(0)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
-            </ul>
-        </div>
-        <div class="legend" id="group1">
-            <h1>Group 1 blips</h1>
-            <ul>
-                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(1)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
-            </ul>
-        </div>
-        <div class="legend" id="group2">
-            <h1>Group 2 blips</h1>
-            <ul>
-                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(2)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
-            </ul>
-        </div>
-        <div class="legend" id="group3">
-            <h1>Group 3 blips</h1>
-            <ul>
-                <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(3)| filter:{name:searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
-            </ul>
-        </div>
+        <legend group="0" id="group0" model="model" search-term="searchTerm" ></legend>
+        <legend group="1" id="group1" model="model" search-term="searchTerm" ></legend>
+        <legend group="2" id="group2" model="model" search-term="searchTerm" ></legend>
+        <legend group="3" id="group3" model="model" search-term="searchTerm" ></legend>
         <div class="addNewBlip" style="width:300px" ng-controller="SelectedRingGroupController" ng-show="isVisible()">
             <h1>Ring {{ringName()}} for group{{group()}} </h1>
             <label>Id</label><input type="text" ng-model="id"/></br>
