@@ -24,8 +24,16 @@ app.service('TrigFunctions', function()
 
         this.RoundToDecimalPlaces = function(number, decimalPlaces)
         {
-            var multiplier = Math.pow(10,decimalPlaces);
-            return Math.round(number * multiplier)/ multiplier;
+            return parseFloat(number.toFixed(decimalPlaces));
+        }
+        this.computeXandYCords = function(center, degress, radius)
+        {
+            var radians = this.RoundToDecimalPlaces(this.ConvertDegToRad(degress),4);
+            var sine = this.RoundToDecimalPlaces(Math.sin(radians),4);
+            var cosine = this.RoundToDecimalPlaces(Math.cos(radians),4);
+            var newXCord = this.RoundToDecimalPlaces(center.x + (sine* radius),4);
+            var newYCord = this.RoundToDecimalPlaces(center.y - (cosine * radius),4);
+            return { x:newXCord, y:newYCord}; 
         }
     }
 );

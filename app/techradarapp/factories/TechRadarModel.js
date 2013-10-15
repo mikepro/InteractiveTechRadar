@@ -1,6 +1,6 @@
 
 var app = angular.module('TechRadarApp');
-app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunctions',function(BlipModel,RingModel,rootScope,trigFunctions){
+app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunctions','InnerSegmentGenerator',function(BlipModel,RingModel,rootScope,trigFunctions, innerSegmentGenerator){
     return function TechRadarModel (centerX, centerY){
         var self = this;
         self.rings = [];
