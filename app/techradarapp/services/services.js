@@ -46,7 +46,6 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
         var circumference = diameter * Math.PI;
         var groupArchCircumference = circumference / numberOfGroups;
         return Math.floor(groupArchCircumference / distancePerBlib);
-
     }
 
     self.countNumberOfBlipsOnAgivenRing = function(startingRadius, radiusInc, ringNumber, distancePerBlib, totalLength)
@@ -142,6 +141,28 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
             blip.x =trigFunctions.RoundToThreeDecimalPlaces(center.x + newX);
             blip.y = trigFunctions.RoundToThreeDecimalPlaces(center.y - newY);
         }
+    }
+    self.generateBlipsShapes = function (blips)
+    {
+        var blipRadius = 3;
+        var triangleHeight = 9;
+        var triangleWidth = 6;
+
+        function CreateTriangle(blip)
+        {
+            var halfTriangleWidth = triangleWidth / 2;
+            var halfTriangleHeight = triangleHeight / 2;
+            blip.path ="M " +(blip.x - halfTriangleWidth) + " " + (blip.y +halfTriangleHeight) + " L "+blip.x + " " + (blip.y - halfTriangleHeight) + " L" +(blip.x + halfTriangleWidth) + " " +(blip.y + halfTriangleHeight) + " Z";
+
+        }
+        function CreateCircle(blip){
+            blip.path = "M " +blip.x + " "+ (blip.y - blipRadius) + " A "+ blipRadius + " " + blipRadius + " 0 1 0 " + (blip.x) + " " + blip.y +" Z";
+        };
+
+        angular.forEach(blips, function(blip, key){
+            if(blip.isNew == true){CreateTriangle(blip);}
+            if(blip.isNew != true){CreateCircle(blip);}
+        },this);
     }
 }]);
 

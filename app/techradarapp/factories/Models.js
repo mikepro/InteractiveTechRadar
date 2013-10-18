@@ -10,6 +10,7 @@ app.factory('BlipModel',function(){
         self.group =group;
         self.x = undefined;
         self.y = undefined;
+        self.path ='';
     }
 });
 
@@ -51,6 +52,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','InnerSegm
             }
             self.groupedBlips[group].push(blipModel);
             blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center, group,self.startingRadius+ blipPadding);
+            blipFunctions.generateBlipsShapes(self.groupedBlips[group]);
             setRadius();
         }
         self.removeBlip = function()
