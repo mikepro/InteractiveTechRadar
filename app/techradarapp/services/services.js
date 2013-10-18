@@ -38,7 +38,7 @@ app.service('TrigFunctions', function()
     }
 );
 
-app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
+app.service('BlipFunctions',['TrigFunctions','SvgPathFactory',function(trigFunctions, SvgPathFactory){
     var self = this;
     self.calculateMaxNumberOfBlipsForRing = function(radius, distancePerBlib, numberOfGroups) 
     {
@@ -147,26 +147,21 @@ app.service('BlipFunctions',['TrigFunctions',function(trigFunctions){
         var blipRadius = 3;
         var triangleHeight = 9;
         var triangleWidth = 6;
-
-        function CreateTriangle(blip)
+        
+        function updateBlipPath(blip, path)
         {
-            var halfTriangleWidth = triangleWidth / 2;
-            var halfTriangleHeight = triangleHeight / 2;
-            blip.path ="M " +(blip.x - halfTriangleWidth) + " " + (blip.y +halfTriangleHeight) + " L "+blip.x + " " + (blip.y - halfTriangleHeight) + " L" +(blip.x + halfTriangleWidth) + " " +(blip.y + halfTriangleHeight) + " Z";
-
+            blip.path = path;
         }
-        function CreateCircle(blip){
-            blip.path = "M " +blip.x + " "+ (blip.y - blipRadius) + " A "+ blipRadius + " " + blipRadius + " 0 1 0 " + (blip.x) + " " + blip.y +" Z";
-        };
 
         angular.forEach(blips, function(blip, key){
-            if(blip.isNew == true){CreateTriangle(blip);}
-            if(blip.isNew != true){CreateCircle(blip);}
+            var blipCenter = {x:blip.x, y:blip.y};
+            if(blip.isNew == true){updateBlipPath(blip, SvgPathFactory.CreateTriangle(blipCenter,triangleWidth, triangleHeight));}
+            if(blip.isNew != true){updateBlipPath(blip, SvgPathFactory.CreateCircle(blipCenter,blipRadius));}
         },this);
     }
 }]);
 
-app.service('InnerSegmentGenerator',function(TrigFunctions){
+app.service('InnerSegmentGenerator',function(TrigFunctions,SvgPathBuilder){
     var self = this;
     self.computePositions =function(center, startingRadius, endingRadius,offset, numberOfDegress)
     {
@@ -183,46 +178,5 @@ app.service('InnerSegmentGenerator',function(TrigFunctions){
             'endingRadius': endingRadius,
             'startingRadius': startingRadius
         }
-    }
-
-    self.generatePath = function(positions)
-    {
-        var svgPath = new PathBuilder()
-                      .MoveTo(positions.startAt.x,positions.startAt.y)
-                      .LineTo(positions.lineTo.x,positions.lineTo.y) 
-                      .Arch(positions.endingRadius,true,positions.largeArchTo.x, positions.largeArchTo.y)
-                      .LineTo(positions.secondLineTo.x, positions.secondLineTo.y)
-                      .Arch(positions.startingRadius,false,positions.smallerArchTo.x,positions.smallerArchTo.y)
-                      .Build();
-        return svgPath;
-    }
-
-    function PathBuilder()
-    {
-        var self = this;
-        commands = [];
-
-        self.MoveTo = function(x,y)
-        {
-            commands.push("M "+x+" "+y);
-            return this;
-        }
-        self.Arch = function(radius, isOuterArch, toX, toY)
-        {
-           var sweepFlag = (isOuterArch == true)? 1:0;
-           commands.push("A "+ radius + " "+  radius+ " 0 0 "+sweepFlag+" "+toX+" "+toY);
-           return this;
-        }
-        self.LineTo = function (x,y)
-        {
-            commands.push("L " +x+" " + y);
-            return this;
-        }
-        self.Build = function()
-        {
-            var closePath = ' Z';
-            return commands.join(' ')+closePath;
-        }
-        
     }
 });

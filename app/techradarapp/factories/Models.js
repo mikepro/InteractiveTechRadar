@@ -14,7 +14,7 @@ app.factory('BlipModel',function(){
     }
 });
 
-app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','InnerSegmentGenerator',function(trigFunctions, blipFunctions, rootScope,innerSegmentGenerator){
+app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','SvgPathFactory',function(trigFunctions, blipFunctions, rootScope,SvgPathFactory){
     return function RingModel(title, startingRadius, radius, center)
     {
         var self = this;
@@ -38,8 +38,8 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','InnerSegm
             for(var i=0;i<numberOfGroups;i++)
             {
                 var offset = degressInEachGroup * i;
-                var positions = innerSegmentGenerator.computePositions(center,self.startingRadius,self.radius,offset, degressInEachGroup);
-                self.segments.push(innerSegmentGenerator.generatePath(positions));
+                var segment = SvgPathFactory.CreateSegment(center,self.startingRadius,self.radius,offset, degressInEachGroup);
+                self.segments.push(segment);
             }
         }
         self.addBlip = function(blipModel)
@@ -51,8 +51,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','InnerSegm
                 self.groupedBlips[group] =[];
             }
             self.groupedBlips[group].push(blipModel);
-            blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center, group,self.startingRadius+ blipPadding);
-            blipFunctions.generateBlipsShapes(self.groupedBlips[group]);
+            recalculateBlipPositions(self.groupedBlips[group] , center, group, blipPadding);
             setRadius();
         }
         self.removeBlip = function()
@@ -60,7 +59,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','InnerSegm
             var removedBlip = self.blips.pop();
             var groupToCalculate = removedBlip.group;
             self.groupedBlips[groupToCalculate].pop();
-            blipFunctions.calculateBlipPositions(self.groupedBlips[groupToCalculate],center,groupToCalculate,self.startingRadius + blipPadding);
+            recalculateBlipPositions(self.groupedBlips[groupToCalculate],center,groupToCalculate,blipPadding);
             setRadius();
         }
 
@@ -76,9 +75,15 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','InnerSegm
         {
             for(var group=0; group< numberOfGroups;group++)
             {
-                blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center,group,self.startingRadius + blipPadding);
+                recalculateBlipPositions(self.groupedBlips[group] , center,group,blipPadding);
             }
             setRadius();
+        }
+
+        function recalculateBlipPositions(blips, center, group,padding)
+        {
+            blipFunctions.calculateBlipPositions(blips, center,group,self.startingRadius + padding);
+            blipFunctions.generateBlipsShapes(blips);
         }
 
         function offsetSegments(){
@@ -136,7 +141,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','InnerSegm
     }
 }]);
 
-app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunctions','InnerSegmentGenerator',function(BlipModel,RingModel,rootScope,trigFunctions, innerSegmentGenerator){
+app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunctions',function(BlipModel,RingModel,rootScope,trigFunctions){
     return function TechRadarModel (centerX, centerY){
         var self = this;
         self.rings = [];
@@ -286,5 +291,81 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
                 self.rings[count].offsetRadius(radiusInc);
             }
         });
+    }
+}]);
+
+app.factory('SvgPathBuilder',[function(){
+    return function PathBuilder()
+    {
+        var self = this;
+        var commands = [];
+        var isClosePath = true;
+
+        self.MoveTo = function(x,y)
+        {
+            commands.push("M "+x+" "+y);
+            return this;
+        }
+        self.Arch = function(radius, isSweepFlag, toX, toY, isLargeArc)
+        {
+           var sweepFlag = (isSweepFlag == true)? 1:0;
+           var largeArcFlag = (isLargeArc == true)? 1: 0;
+           commands.push("A "+ radius + " "+  radius+ " 0 " + largeArcFlag+" "+sweepFlag+" "+toX+" "+toY);
+           return this;
+        }
+        self.WithClosePath = function(value)
+        {
+            isClosePath = value;
+            return this;
+        }
+        self.LineTo = function (x,y)
+        {
+            commands.push("L " +x+" " + y);
+            return this;
+        }
+        self.Build = function()
+        {
+            var closePath = '';
+            if(isClosePath ==true)
+            {
+                closePath = ' Z';
+            }
+            return commands.join(' ')+closePath;
+        }
+    }
+}]);
+
+app.factory('SvgPathFactory',['SvgPathBuilder','InnerSegmentGenerator',function(pathBuilder,InnerSegmentGenerator){
+    return {
+        CreateTriangle: function(center, width, height)
+        {
+            var halfWidth = width / 2;
+            var halfHeight = height / 2;
+
+            var triangle = new pathBuilder().MoveTo(center.x - halfWidth, center.y + halfHeight)
+                .LineTo(center.x,center.y - halfHeight)
+                .LineTo(center.x + halfWidth, center.y + halfHeight)
+                .Build();
+            return triangle;
+        },
+        CreateCircle: function(center,radius)
+        {
+            var circle = new pathBuilder().MoveTo(center.x, center.y - radius)
+                .Arch(radius,false,center.x, center.y, true)
+                .Build();
+            return circle;
+        },
+        CreateSegment: function(center, startingRadius, endingRadius,offset, numberOfDegress)
+        {
+            var positions = InnerSegmentGenerator.computePositions(center, startingRadius,endingRadius,offset,numberOfDegress);
+            var segment = new pathBuilder()
+                .MoveTo(positions.startAt.x,positions.startAt.y)
+                .LineTo(positions.lineTo.x,positions.lineTo.y) 
+                .Arch(positions.endingRadius,true,positions.largeArchTo.x, positions.largeArchTo.y)
+                .LineTo(positions.secondLineTo.x, positions.secondLineTo.y)
+                .Arch(positions.startingRadius,false,positions.smallerArchTo.x,positions.smallerArchTo.y)
+                .Build();
+            return segment;
+        }
     }
 }]);

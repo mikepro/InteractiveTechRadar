@@ -66,7 +66,7 @@ describe('Blip functions',function(){
         var fakeBlips = [];
         for(var i=0; i<numOfBlips; i++)
         {
-            fakeBlips.push({x:0,y:0,group:0});
+            fakeBlips.push({x:0,y:0,group:0, path:undefined});
         }
         return fakeBlips;
     }
@@ -332,5 +332,45 @@ describe('Blip functions',function(){
             expect(twelvePostion.y).toBe(161.27);
         })
     });
+    describe('When drawing shapes ',function(){
+        var svgPathFactory ={};
+        beforeEach(function(){
+             inject(function(SvgPathFactory){
+                svgPathFactory = SvgPathFactory;
+             });
+        });
+        it('the path of all blips should be updated', function(){
+            var blips = CreateBlips(2);
+            blipFunc.generateBlipsShapes(blips);
+            expect(blips[0].path).not.toBe(undefined);
+            expect(blips[1].path).not.toBe(undefined);
+        });
+        it('we should create a triangle from the factory if the blip is new',function(){
+             var newBlip= [{x:0,y:0,isNew: true}];
+             spyOn(svgPathFactory,'CreateTriangle');
+             blipFunc.generateBlipsShapes(newBlip);
+             expect(svgPathFactory.CreateTriangle).toHaveBeenCalled();
+        });
+        it('we should create a circle from the factory if the blip is not new',function(){
+             var newBlip= [{x:0,y:0,isNew: false}];
+             spyOn(svgPathFactory,'CreateCircle');
+             blipFunc.generateBlipsShapes(newBlip);
+             expect(svgPathFactory.CreateCircle).toHaveBeenCalled();
+        });
+        it('if all the blips are new we should never create a circle',function(){
+             var newBlips= [{x:0,y:0,isNew:true},{x:0,y:0,isNew:true}];
+             spyOn(svgPathFactory,'CreateCircle');
+
+             blipFunc.generateBlipsShapes(newBlips);
+             expect(svgPathFactory.CreateCircle).not.toHaveBeenCalled();
+        });
+        it('if all blips are old we should never create a triangle',function(){
+             var newBlips= [{x:0,y:0,isNew:false},{x:0,y:0,isNew:false}];
+             spyOn(svgPathFactory,'CreateTriangle');
+
+             blipFunc.generateBlipsShapes(newBlips);
+             expect(svgPathFactory.CreateTriangle).not.toHaveBeenCalled();
+        });
+    }); 
 });
 
