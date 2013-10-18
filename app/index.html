@@ -21,10 +21,8 @@
         <label>Search</label><input type="text" ng-model="searchTerm"/>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
             <g transform="scale({{model.zoomLevel}})">
-                <line class="svg-groupmarkers" ng-attr-x1="{{line.x1}}" ng-attr-y1="{{line.y1}}" ng-attr-x2="{{line.x2}}" ng-attr-y2="{{line.y2}}" ng-repeat="line in model.groupLines"/>
                 <g ng-repeat="ring in model.rings">
-                    <path class="svg-clickablering" ng-repeat="x in ring.clickableRings"  stroke-width="{{x.width}}" ng-attr-d="{{x.svgPath}}" ng-click="selectRingAndGroup($index,ring)"/>
-                    <circle class="svg-ring" cx="500" cy="250" ng-attr-r="{{ring.radius}}" />
+                    <path class="svg-clickablering"ng-repeat="x in ring.segments" ng-attr-d="{{x}}" ng-click="selectRingAndGroup($index,ring)"/>
                     <circle class="svg-blip" ng-attr-highlighted="{{model.isHighlightedBlip(blip)?'true':'false'}}" ng-attr-blipselected="{{model.isSelectedBlip(blip)?'true':'false'}}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)" ng-repeat="blip in ring.blips | filter:{name:searchTerm||undefined}" ng-attr-cx="{{blip.x}}" ng-attr-cy="{{blip.y}}" r="2"/>
                     <text class="svg-ringtext" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}">{{ring.title}}</text>
                 </g>

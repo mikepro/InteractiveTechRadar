@@ -13,7 +13,7 @@ app.factory('BlipModel',function(){
     }
 });
 
-app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','ClickableRing',function(trigFunctions, blipFunctions, rootScope,clickableRing){
+app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','InnerSegmentGenerator',function(trigFunctions, blipFunctions, rootScope,innerSegmentGenerator){
     return function RingModel(title, startingRadius, radius, center)
     {
         var self = this;
@@ -25,7 +25,22 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
         self.blips = [];
         self.groupedBlips ={};
         self.startingRadius = startingRadius;
-        self.clickableRings = clickableRing.constructAll(center, self.startingRadius,radius);
+        self.segments = [];
+        var numberOfGroups = 4;
+        var degressInEachGroup = 90;
+        var blipPadding = 10;
+
+        initalizeSegments(numberOfGroups);
+        function initalizeSegments(numberOfGroups)
+        {
+            self.segments = [];
+            for(var i=0;i<numberOfGroups;i++)
+            {
+                var offset = degressInEachGroup * i;
+                var positions = innerSegmentGenerator.computePositions(center,self.startingRadius,self.radius,offset, degressInEachGroup);
+                self.segments.push(innerSegmentGenerator.generatePath(positions));
+            }
+        }
         self.addBlip = function(blipModel)
         {
             var group = blipModel.group;
@@ -35,7 +50,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
                 self.groupedBlips[group] =[];
             }
             self.groupedBlips[group].push(blipModel);
-            blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center, group,self.startingRadius);
+            blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center, group,self.startingRadius+ blipPadding);
             setRadius();
         }
         self.removeBlip = function()
@@ -43,7 +58,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
             var removedBlip = self.blips.pop();
             var groupToCalculate = removedBlip.group;
             self.groupedBlips[groupToCalculate].pop();
-            blipFunctions.calculateBlipPositions(self.groupedBlips[groupToCalculate],center,groupToCalculate,self.startingRadius);
+            blipFunctions.calculateBlipPositions(self.groupedBlips[groupToCalculate],center,groupToCalculate,self.startingRadius + blipPadding);
             setRadius();
         }
 
@@ -51,22 +66,21 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
             self.radius = self.radius + offset;
             self.startingRadius = self.startingRadius + offset;
             setTextPosition(self.radius);
-            offsetClickableRing();
+            offsetSegments();
             offsetAllBlips();
         }
 
         function offsetAllBlips()
         {
-            var numberOfGroups = 4;
             for(var group=0; group< numberOfGroups;group++)
             {
-                blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center,group,self.startingRadius);
+                blipFunctions.calculateBlipPositions(self.groupedBlips[group] , center,group,self.startingRadius + blipPadding);
             }
             setRadius();
         }
 
-        function offsetClickableRing(){
-            self.clickableRings = clickableRing.constructAll(center, self.startingRadius,self.radius);
+        function offsetSegments(){
+            initalizeSegments(numberOfGroups);
         }
 
         function setTextPosition(radius)
@@ -81,7 +95,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
             {
                 var radiusSoFar = 0;
                 angular.forEach(self.groupedBlips, function(value, index){
-                   var currentRadius = blipFunctions.calculateLargestRadius(self.startingRadius,10,12.563,value.length,4) + 10; 
+                   var currentRadius = blipFunctions.calculateLargestRadius(self.startingRadius + blipPadding,10,12.563,value.length,numberOfGroups) + 10;
                    if(currentRadius >radiusSoFar)
                     {
                         radiusSoFar= currentRadius;
@@ -105,13 +119,13 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','Clickable
                 self.radius =biggestGroupRadius; 
                 rootScope.$broadcast('radiusChange',{ring:self, inc: radiusChangeInc});
                 setTextPosition(biggestGroupRadius);
-                offsetClickableRing();
+                offsetSegments();
             }
 
             var biggestGroupRadius = getLargestRadius();
 
             var hasRadiusIncreased = biggestGroupRadius > self.radius;
-            var hasRadiusDecreased = biggestGroupRadius < self.radius && !(self.radius < radius);
+            var hasRadiusDecreased = biggestGroupRadius < self.radius && ((self.radius - self.startingRadius) > (radius - startingRadius));
             if(hasRadiusChanged() && biggestGroupRadius > radius)
             {
                 changeRadius();
@@ -131,9 +145,9 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
         self.highlightedBlip ={};
         self.init = function()
         {
-            var addoptRing = new RingModel('Adopt', 10, 80, self.centerCords);
-            var trialRing = new RingModel('Trial', 90,160, self.centerCords);
-            var candiateRing = new RingModel('Candidate', 170, 240, self.centerCords);
+            var addoptRing = new RingModel('Adopt', 0, 70, self.centerCords);
+            var trialRing = new RingModel('Trial', 70,140, self.centerCords);
+            var candiateRing = new RingModel('Candidate', 140, 210, self.centerCords);
             self.addRing(addoptRing);
             self.addRing(trialRing);
             self.addRing(candiateRing);
@@ -241,12 +255,10 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
         self.addRing = function(ringModel)
         {
             self.rings.push(ringModel);
-            self.groupLines = computeGroupLines();
         }
         self.removeRing = function()
         {
             var removedRing = self.rings.pop();
-            self.groupLines = computeGroupLines();
         }
 
         self.allBlipsForGroup = function(group)
@@ -271,27 +283,6 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
             {
                 self.rings[count].offsetRadius(radiusInc);
             }
-            self.groupLines = computeGroupLines();
         });
-
-        function computeGroupLines()
-        {
-            var lastRingIndex = self.rings.length -1;
-            var bigestRadius = self.rings[lastRingIndex].radius;
-
-            var verticalx1 = self.centerCords.x;
-            var verticaly1 = self.centerCords.y -bigestRadius;
-            var verticalx2 = self.centerCords.x;
-            var verticaly2 = self.centerCords.y + bigestRadius;
-
-            var horzx1 = self.centerCords.x + bigestRadius
-            var horzy1 = self.centerCords.y;
-            var horzx2 = self.centerCords.x - bigestRadius;
-            var horzy2 = self.centerCords.y;
-            return [
-                {x1: horzx1, y1: horzy1, x2: horzx2, y2: horzy2},
-                {x1: verticalx1, y1: verticaly1, x2: verticalx2, y2: verticaly2}
-            ];
-        }
     }
 }]);
