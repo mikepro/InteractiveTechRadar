@@ -1,5 +1,5 @@
 var app = angular.module('TechRadarApp');
-app.controller('SelectedRingGroupController',function($scope,BlipModel){
+app.controller('SelectedRingGroupController',function($scope,BlipModel,FilterProductModel){
     $scope.isVisible = function()
     {
         return $scope.model.selectedRingAndGroup.selected; 
@@ -39,7 +39,8 @@ app.controller('SelectedRingGroupController',function($scope,BlipModel){
     function save()
     {
         var selectedRingAndGroup =$scope.model.selectedRingAndGroup;
-        var newBlip = new BlipModel($scope.id,$scope.name,$scope.isNew,$scope.group() );
+        var newBlip = new BlipModel($scope.id,$scope.name,$scope.isNew,$scope.group(),$scope.product);
+        $scope.filter.addProduct(new FilterProductModel($scope.product, false));
         selectedRingAndGroup.ring.addBlip(newBlip);
     }
 
@@ -55,13 +56,15 @@ app.controller('SelectedRingGroupController',function($scope,BlipModel){
         $scope.id = undefined;
         $scope.name = undefined;
         $scope.isNew = undefined;
+        $scope.product = undefined;
     }
 });
 
-app.controller('TechRadarController',['$scope','TechRadarModel','RingModel', function($scope,TechRadarModel,RingModel){
+app.controller('TechRadarController',['$scope','TechRadarModel','RingModel','FilterModel', function($scope,TechRadarModel,RingModel,FilterModel){
     var self = this;
     self.centerCords= {'x': 500, 'y': 250};
     $scope.model = new TechRadarModel(self.centerCords.x, self.centerCords.y );
+    $scope.filter = new FilterModel();
     $scope.model.init();
     $scope.addRing = function()
     {
@@ -92,5 +95,24 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel', fun
         $scope.model.selectedRingAndGroup.group =index;
         $scope.model.selectedRingAndGroup.ring = ring;
         $scope.model.selectedRingAndGroup.selected = true;
+    }
+}]);
+app.controller('FilterController',['$scope','FilterProductModel', function($scope,FilterProductModel){
+    $scope.filter.products = [new FilterProductModel('Uncatogrised', false)];
+    $scope.showProductChoices= function()
+    {
+        return !$scope.filter.allProductsSelected;
+    }
+    $scope.selectAllProducts = function()
+    {
+        angular.forEach($scope.filter.products, function(value,key){
+            value.isSelected = true;
+        });
+    }
+    $scope.unselectAllProducts = function()
+    {
+        angular.forEach($scope.filter.products, function(value,key){
+            value.isSelected =false;
+        });
     }
 }]);

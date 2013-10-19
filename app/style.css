@@ -27,14 +27,14 @@ svg
 #group2
 {
     position: absolute;
-    top: 350px;
-    left: 0px;
+    top: 300px;
+    left: 10px;
 }
 #group3
 {
     position: absolute;
-    top: 50px;
-    left: 0px;
+    top: 10px;
+    left: 10px;
 }
 
 .addNewBlip
@@ -53,4 +53,9 @@ svg
 {
     color: red;
     font-weight: bold;
+}
+#filter
+{
+    position: absolute;
+    left: 1060px;
 }

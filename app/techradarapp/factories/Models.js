@@ -1,7 +1,7 @@
 var app = angular.module('TechRadarApp');
 
 app.factory('BlipModel',function(){
-    return function BlipModel(id, name, isNew, group)
+    return function BlipModel(id, name, isNew, group, product)
     {
         var self = this;
         self.id = id;
@@ -11,6 +11,7 @@ app.factory('BlipModel',function(){
         self.x = undefined;
         self.y = undefined;
         self.path ='';
+        self.product = product;
     }
 });
 
@@ -291,6 +292,39 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
                 self.rings[count].offsetRadius(radiusInc);
             }
         });
+    }
+}]);
+
+app.factory('FilterModel',[function(){
+    return function FilterModel()
+    {
+        var self = this;
+        self.searchTerm = undefined;
+        self.products = [];
+        self.addProduct = function(newProduct)
+        {
+            var productHasAname = newProduct.name != undefined && newProduct.name != '';
+            var productDoesNotExist = true;
+            angular.forEach(self.products,function(existingProduct, key){
+                if(existingProduct.name.toLowerCase() == newProduct.name.toLowerCase())
+                {
+                    productDoesNotExist = false;
+                }
+            });
+            if(productHasAname && productDoesNotExist)
+            {
+                self.products.push(newProduct);
+            }
+        }
+    }
+}]);
+
+app.factory('FilterProductModel',[function(){
+    return function FilterProductModel(name, isSelected)
+    {
+        var self = this;
+        self.name= name;
+        self.isSelected = isSelected;
     }
 }]);
 
