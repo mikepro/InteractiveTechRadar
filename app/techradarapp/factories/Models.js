@@ -301,12 +301,13 @@ app.factory('FilterModel',[function(){
         var self = this;
         self.searchTerm = undefined;
         self.products = [];
+        self.allProductsSelected= true;
         self.addProduct = function(newProduct)
         {
             var productHasAname = newProduct.name != undefined && newProduct.name != '';
             var productDoesNotExist = true;
             angular.forEach(self.products,function(existingProduct, key){
-                if(existingProduct.name.toLowerCase() == newProduct.name.toLowerCase())
+                if(productHasAname && existingProduct.name.toLowerCase() == newProduct.name.toLowerCase())
                 {
                     productDoesNotExist = false;
                 }

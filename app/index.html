@@ -6,6 +6,7 @@
     <script type="text/javascript" src="techradarapp/controllers/controllers.js"></script>
     <script type="text/javascript" src="techradarapp/services/services.js"></script>
     <script type="text/javascript" src="techradarapp/directive/directives.js"></script>
+    <script type="text/javascript" src="techradarapp/filters/filters.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" type="text/css" href="svg.css"/>
     </head>
@@ -14,20 +15,20 @@
             <div class="legend">
                 <h1>Group {{group}} blips</h1>
                 <ul>
-                    <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(group)| filter:{name:filter.searchTerm||undefined}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
+                    <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(group)|filter:{name:filterProperties.searchTerm||undefined} | productFilter:filterProperties" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
                 </ul>
             </div>
         </script>
         <div id="filter" ng-controller="FilterController">
-            <label>Search</label><input type="text" ng-model="filter.searchTerm"/>
+            <label>Search</label><input type="text" ng-model="filterProperties.searchTerm"/>
             <div>
                 <h2>Filter by product</h2>
-                <label>All products</label><input type="checkbox" ng-model="filter.allProductsSelected" ng-checked="filter.allProductsSelected"/>
+                <label>All products</label><input type="checkbox" ng-model="filterProperties.allProductsSelected" ng-checked="filterProperties.allProductsSelected"/>
                 <div ng-show="showProductChoices()">
                     <a href="#" ng-click="selectAllProducts()">Select all</a>
                     <a href="#" ng-click="unselectAllProducts()">Clear all</a>
                     <ul>
-                        <li ng-repeat="product in filter.products"><label>{{product.name}}</label><input type="checkbox" ng-model ="product.isSelected" ng-checked="product.isSelected" /></li>
+                        <li ng-repeat="product in filterProperties.products"><label>{{product.name}}</label><input type="checkbox" ng-model ="product.isSelected" ng-checked="product.isSelected" /></li>
                 </div>
             </div>
         </div>
@@ -35,15 +36,15 @@
             <g transform="scale({{model.zoomLevel}})">
                 <g ng-repeat="ring in model.rings">
                     <path class="svg-clickablering" ng-repeat="x in ring.segments" ng-attr-d="{{x}}" ng-click="selectRingAndGroup($index,ring)"/>
-                    <path class="svg-blip" ng-attr-highlighted="{{model.isHighlightedBlip(blip)?'true':'false'}}" ng-attr-blipselected="{{model.isSelectedBlip(blip)?'true':'false'}}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)" ng-repeat="blip in ring.blips | filter:{name:filter.searchTerm||undefined}" ng-attr-d="{{blip.path}}"/>
+                    <path class="svg-blip" ng-attr-highlighted="{{model.isHighlightedBlip(blip)?'true':'false'}}" ng-attr-blipselected="{{model.isSelectedBlip(blip)?'true':'false'}}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)" ng-repeat="blip in ring.blips |filter:{name:filterProperties.searchTerm||undefined}| productFilter:filterProperties" ng-attr-d="{{blip.path}}"/>-->
                     <text class="svg-ringtext" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}">{{ring.title}}</text>
                 </g>
             </g>
         </svg>
-        <legend group="0" id="group0" model="model" search-term="filter.searchTerm" ></legend>
-        <legend group="1" id="group1" model="model" search-term="filter.searchTerm" ></legend>
-        <legend group="2" id="group2" model="model" search-term="filter.searchTerm" ></legend>
-        <legend group="3" id="group3" model="model" search-term="filter.searchTerm" ></legend>
+        <legend group="0" id="group0" model="model" filter-properties="filterProperties"></legend>
+        <legend group="1" id="group1" model="model" filter-properties="filterProperties"></legend>
+        <legend group="2" id="group2" model="model" filter-properties="filterProperties"></legend>
+        <legend group="3" id="group3" model="model" filter-properties="filterProperties"></legend>
         <div class="addNewBlip" style="width:300px" ng-controller="SelectedRingGroupController" ng-show="isVisible()">
             <h1>Ring {{ringName()}} for group{{group()}} </h1>
             <label>Id</label><input type="text" ng-model="id"/></br>

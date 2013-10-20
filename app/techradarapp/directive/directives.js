@@ -5,7 +5,7 @@ angular.module('TechRadarApp')
         scope:
         {
             model: '=',
-            searchTerm:'=',
+            filterProperties:'=',
             title: '@',
             group: '@'
         },
