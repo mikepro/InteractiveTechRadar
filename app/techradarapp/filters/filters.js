@@ -1,50 +1,37 @@
 var app = angular.module('TechRadarApp');
 
-app.filter('productFilter',function(){
+app.filter('productFilter',['_',function(_){
     return function(blips, filterModel)
     {
        if(filterModel.allProductsSelected == true)
        {
            return blips;
        }
-       var selectedProducts = getSelectedProducts(filterModel.products);
-
-       var blipsThatMatchSelectedProducts =[];
-       angular.forEach(blips, function(blip, key){
-           angular.forEach(getBlipProductNames(blip.product),function(blipProduct, key){
-                angular.forEach(selectedProducts, function(product, key){
-                    var blipProductMatchesSelectedProduct = blipProduct == product.name;
-                    var uncatogrisedSelected = product.name == 'Uncategorised' && (blip.product == '' || blip.product == undefined);
-                    var blipHasNotPreviouslyBeenAdded = blipsThatMatchSelectedProducts.indexOf(blip) ==-1;
-                    if((blipProductMatchesSelectedProduct || uncatogrisedSelected) && blipHasNotPreviouslyBeenAdded)
-                    {
-                        blipsThatMatchSelectedProducts.push(blip);
-                    }
-                });
-           });
-       });
-       return blipsThatMatchSelectedProducts;
+       var selectedProducts = getSelectedProductNames(filterModel.products);
+        return _.filter(blips,function(blip){
+            var blipProducts = getBlipProductNames(blip.product);
+            var foundProducts = _.find(selectedProducts,function(selectedProduct){
+                var foundProduct = _.find(blipProducts, function(blipProject){return blipProject == selectedProduct});
+                var uncatogrisedSelected = selectedProduct == 'Uncategorised' && (blip.product == '' || blip.product == undefined);
+                if(foundProduct || uncatogrisedSelected)
+                {
+                    return true;
+                }
+            });
+            return foundProducts;
+        });
     }
-    function getSelectedProducts(products)
+    function getSelectedProductNames(products)
     {
-       var selected = [];
-       angular.forEach(products,function(product, index){
-           if(product.isSelected == true)
-           {
-               selected.push(product);
-           }
-       });
-       return selected;
+        return _.chain(products)
+         .filter(function(product){return product.isSelected == true})
+         .pluck('name')
+         .value();
     }
     function getBlipProductNames(productString)
     {
         if(productString == undefined)
             return [''];
-        var products = productString.split(',');
-        var productsToReturn = [];
-        angular.forEach(products,function(product,key){
-            productsToReturn.push(product.trim()); 
-        });
-        return productsToReturn;
+        return _.map(productString.split(','),function(value){return value.trim()});
     }
-});
+}]);

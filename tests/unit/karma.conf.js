@@ -8,6 +8,7 @@ module.exports = function(config) {
               'app/lib/angularJS/angular.js',
               'app/lib/angularJS/angular-*.js$',
               'app/lib/angularJS/angular-mocks.js',
+              'app/lib/underscore.js',
               'app/techradarapp/*.js',
               'app/techradarapp/**/*.js',
               'tests/unit/**/*.js'
