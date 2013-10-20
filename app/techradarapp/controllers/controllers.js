@@ -69,7 +69,7 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel','Fil
     $scope.addRing = function()
     {
         var numberOfRings = $scope.model.rings.length;
-        var startingRadius =numberOfRings ?$scope.model.rings[numberOfRings-1].radius + 10:  0;
+        var startingRadius =numberOfRings ?$scope.model.rings[numberOfRings-1].radius:  0;
         var endingRadius = numberOfRings ?$scope.model.rings[numberOfRings-1].radius + 80 : 80;
         $scope.model.addRing(new RingModel('trial', startingRadius, endingRadius ,self.centerCords));
     }
@@ -78,9 +78,7 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel','Fil
     {
         $scope.model.removeRing();
     }
-    $scope.addBlip = function(group){
-        $scope.model.rings[0].addBlip(new BlipModel('3', 't', false,group));
-    }
+
     $scope.removeBlip = function(){
         $scope.model.rings[0].removeBlip();
     }
