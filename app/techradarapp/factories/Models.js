@@ -142,7 +142,7 @@ app.factory('RingModel',['TrigFunctions','BlipFunctions','$rootScope','SvgPathFa
     }
 }]);
 
-app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunctions',function(BlipModel,RingModel,rootScope,trigFunctions){
+app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunctions','$location','$anchorScroll',function(BlipModel,RingModel,rootScope,trigFunctions,$location,$anchorScroll){
     return function TechRadarModel (centerX, centerY){
         var self = this;
         self.rings = [];
@@ -242,6 +242,8 @@ app.factory('TechRadarModel',['BlipModel','RingModel','$rootScope','TrigFunction
                 return;
             }
             self.selectedBlip = blip;
+            $location.hash(blip.name);
+            $anchorScroll();
         }
         
         self.selectedRingAndGroup = {ring: undefined, group: undefined, selected: false};

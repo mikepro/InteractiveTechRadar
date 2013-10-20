@@ -15,7 +15,10 @@
             <div class="legend">
                 <h1>Group {{group}} blips</h1>
                 <ul>
-                    <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(group)|filter:{name:filterProperties.searchTerm||undefined} | productFilter:filterProperties" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">({{blip.id}}) {{blip.name}}</li>
+                    <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(group)|filter:{name:filterProperties.searchTerm||undefined} | productFilter:filterProperties" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">
+                        <a name="{{blip.name}}"></a>
+                        ({{blip.id}}) {{blip.name}}
+                    </li>
                 </ul>
             </div>
         </script>
