@@ -40,8 +40,16 @@ app.controller('SelectedRingGroupController',function($scope,BlipModel,FilterPro
     {
         var selectedRingAndGroup =$scope.model.selectedRingAndGroup;
         var newBlip = new BlipModel($scope.id,$scope.name,$scope.isNew,$scope.group(),$scope.product);
-        $scope.filterProperties.addProduct(new FilterProductModel($scope.product, true));
         selectedRingAndGroup.ring.addBlip(newBlip);
+        if(angular.isString($scope.product)){
+            var products = $scope.product.split(',');
+            angular.forEach(products,function(product,key){
+                product = product.trim();
+            });
+            angular.forEach(products,function(product,key){
+                $scope.filterProperties.addProduct(new FilterProductModel(product, true));
+            });
+        }
     }
 
     function close()

@@ -11,14 +11,17 @@ app.filter('productFilter',function(){
 
        var blipsThatMatchSelectedProducts =[];
        angular.forEach(blips, function(blip, key){
-            angular.forEach(selectedProducts, function(product, key){
-                var blipProductMatchesSelectedProduct =blip.product == product.name;
-                var uncatogrisedSelected = product.name == 'Uncategorised' && (blip.product == '' || blip.product == undefined);
-                if(blipProductMatchesSelectedProduct || uncatogrisedSelected)
-                {
-                    blipsThatMatchSelectedProducts.push(blip);
-                }
-            });
+           angular.forEach(getBlipProductNames(blip.product),function(blipProduct, key){
+                angular.forEach(selectedProducts, function(product, key){
+                    var blipProductMatchesSelectedProduct = blipProduct == product.name;
+                    var uncatogrisedSelected = product.name == 'Uncategorised' && (blip.product == '' || blip.product == undefined);
+                    var blipHasNotPreviouslyBeenAdded = blipsThatMatchSelectedProducts.indexOf(blip) ==-1;
+                    if((blipProductMatchesSelectedProduct || uncatogrisedSelected) && blipHasNotPreviouslyBeenAdded)
+                    {
+                        blipsThatMatchSelectedProducts.push(blip);
+                    }
+                });
+           });
        });
        return blipsThatMatchSelectedProducts;
     }
@@ -32,5 +35,16 @@ app.filter('productFilter',function(){
            }
        });
        return selected;
+    }
+    function getBlipProductNames(productString)
+    {
+        if(productString == undefined)
+            return [''];
+        var products = productString.split(',');
+        var productsToReturn = [];
+        angular.forEach(products,function(product,key){
+            productsToReturn.push(product.trim()); 
+        });
+        return productsToReturn;
     }
 });
