@@ -68,12 +68,12 @@ app.controller('SelectedRingGroupController',function($scope,BlipModel,FilterPro
     }
 });
 
-app.controller('TechRadarController',['$scope','TechRadarModel','RingModel','FilterModel', function($scope,TechRadarModel,RingModel,FilterModel){
+app.controller('TechRadarController',['$scope','TechRadarModel','RingModel','FilterModel','InitialData', function($scope,TechRadarModel,RingModel,FilterModel,InitialData){
     var self = this;
     self.centerCords= {'x': 500, 'y': 250};
     $scope.model = new TechRadarModel(self.centerCords.x, self.centerCords.y );
     $scope.filterProperties = new FilterModel();
-    $scope.model.init();
+    InitialData.load($scope.model,self.centerCords);
     $scope.addRing = function()
     {
         var numberOfRings = $scope.model.rings.length;
