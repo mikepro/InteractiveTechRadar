@@ -1,7 +1,7 @@
 var app = angular.module('TechRadarApp');
 
 app.factory('BlipModel',function(){
-    return function BlipModel(id, name, isNew, group, product)
+    return function BlipModel(id, name, isNew, group,category)
     {
         var self = this;
         self.id = id;
@@ -11,7 +11,7 @@ app.factory('BlipModel',function(){
         self.x = undefined;
         self.y = undefined;
         self.path ='';
-        self.product = product;
+        self.category= category;
     }
 });
 
@@ -302,21 +302,21 @@ app.factory('FilterModel',[function(){
     {
         var self = this;
         self.searchTerm = undefined;
-        self.products = [];
-        self.allProductsSelected= true;
-        self.addProduct = function(newProduct)
+        self.categories = [];
+        self.allCategoriesSelected= true;
+        self.addCatogry = function(newCategory)
         {
-            var productHasAname = newProduct.name != undefined && newProduct.name != '';
-            var productDoesNotExist = true;
-            angular.forEach(self.products,function(existingProduct, key){
-                if(productHasAname && existingProduct.name.toLowerCase() == newProduct.name.toLowerCase())
+            var categoryHasAname = newCategory.name != undefined && newCategory.name != '';
+            var categoryDoesNotExist = true;
+            angular.forEach(self.categories,function(existingCategory, key){
+                if(categoryHasAname && existingCategory.name.toLowerCase() == newCategory.name.toLowerCase())
                 {
-                    productDoesNotExist = false;
+                    categoryDoesNotExist = false;
                 }
             });
-            if(productHasAname && productDoesNotExist)
+            if(categoryHasAname && categoryDoesNotExist)
             {
-                self.products.push(newProduct);
+                self.categories.push(newCategory);
             }
         }
     }

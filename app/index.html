@@ -16,7 +16,7 @@
             <div class="legend">
                 <h1>Group {{group}} blips</h1>
                 <ul>
-                    <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(group)|filter:{name:filterProperties.searchTerm||undefined} | productFilter:filterProperties" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">
+                    <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(group)|filter:{name:filterProperties.searchTerm||undefined} | categoryFilter:filterProperties" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">
                         <a name="{{blip.name}}"></a>
                         ({{blip.id}}) {{blip.name}}
                     </li>
@@ -26,13 +26,14 @@
         <div id="filter" ng-controller="FilterController">
             <label>Search</label><input type="text" ng-model="filterProperties.searchTerm"/>
             <div>
-                <h2>Filter by product</h2>
-                <label>All products</label><input type="checkbox" ng-model="filterProperties.allProductsSelected" ng-checked="filterProperties.allProductsSelected"/>
-                <div ng-show="showProductChoices()">
-                    <a href="#" ng-click="selectAllProducts()">Select all</a>
-                    <a href="#" ng-click="unselectAllProducts()">Clear all</a>
+                <h2>Filter by categories</h2>
+                <label>All categories</label><input type="checkbox" ng-model="filterProperties.allCategoriesSelected" ng-checked="filterProperties.allCategoriesSelected"/>
+                <div ng-show="showCatogoryChoices()">
+                    <a href="#" ng-click="selectAllCategories()">Select all</a>
+                    <a href="#" ng-click="unselectAllCategories()">Clear all</a>
                     <ul>
-                        <li ng-repeat="product in filterProperties.products"><label>{{product.name}}</label><input type="checkbox" ng-model ="product.isSelected" ng-checked="product.isSelected" /></li>
+                        <li ng-repeat="category in filterProperties.categories"><label>{{category.name}}</label><input type="checkbox" ng-model ="category.isSelected" ng-checked="category.isSelected" />
+                    </li>
                 </div>
             </div>
         </div>
@@ -40,7 +41,7 @@
             <g transform="scale({{model.zoomLevel}})">
                 <g ng-repeat="ring in model.rings">
                     <path class="svg-clickablering" ng-repeat="x in ring.segments" ng-attr-d="{{x}}" ng-click="selectRingAndGroup($index,ring)"/>
-                    <path class="svg-blip" ng-attr-highlighted="{{model.isHighlightedBlip(blip)?'true':'false'}}" ng-attr-blipselected="{{model.isSelectedBlip(blip)?'true':'false'}}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)" ng-repeat="blip in ring.blips |filter:{name:filterProperties.searchTerm||undefined}| productFilter:filterProperties" ng-attr-d="{{blip.path}}"/>-->
+                    <path class="svg-blip" ng-attr-highlighted="{{model.isHighlightedBlip(blip)?'true':'false'}}" ng-attr-blipselected="{{model.isSelectedBlip(blip)?'true':'false'}}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)" ng-repeat="blip in ring.blips |filter:{name:filterProperties.searchTerm||undefined}| categoryFilter:filterProperties" ng-attr-d="{{blip.path}}"/>-->
                     <text class="svg-ringtext" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}">{{ring.title}}</text>
                 </g>
             </g>
@@ -53,7 +54,7 @@
             <h1>Ring {{ringName()}} for group{{group()}} </h1>
             <label>Id</label><input type="text" ng-model="id"/></br>
             <label>Title</label><input type="text" ng-model="name"/></br>
-            <label>Product</label><input type="text" ng-model="product"/></br>
+            <label>Category</label><input type="text" ng-model="category"/></br>
             <label>Is New</label><input type="checkbox" ng-model="isNew"/></br>
             <input type="button" ng-click="cancel()" value="Cancel"/>
             <input type="button" ng-click="save()" value="Save and close"/>

@@ -39,15 +39,15 @@ app.controller('SelectedRingGroupController',function($scope,BlipModel,FilterPro
     function save()
     {
         var selectedRingAndGroup =$scope.model.selectedRingAndGroup;
-        var newBlip = new BlipModel($scope.id,$scope.name,$scope.isNew,$scope.group(),$scope.product);
+        var newBlip = new BlipModel($scope.id,$scope.name,$scope.isNew,$scope.group(),$scope.category);
         selectedRingAndGroup.ring.addBlip(newBlip);
-        if(angular.isString($scope.product)){
-            var products = $scope.product.split(',');
-            angular.forEach(products,function(product,key){
-                product = product.trim();
+        if(angular.isString($scope.category)){
+            var categories = $scope.category.split(',');
+            angular.forEach(categories,function(category,key){
+                category = category.trim();
             });
-            angular.forEach(products,function(product,key){
-                $scope.filterProperties.addProduct(new FilterProductModel(product, true));
+            angular.forEach(categories,function(category,key){
+                $scope.filterProperties.addCatogry(new FilterProductModel(category, true));
             });
         }
     }
@@ -64,7 +64,7 @@ app.controller('SelectedRingGroupController',function($scope,BlipModel,FilterPro
         $scope.id = undefined;
         $scope.name = undefined;
         $scope.isNew = undefined;
-        $scope.product = undefined;
+        $scope.category = undefined;
     }
 });
 
@@ -104,20 +104,20 @@ app.controller('TechRadarController',['$scope','TechRadarModel','RingModel','Fil
     }
 }]);
 app.controller('FilterController',['$scope','FilterProductModel', function($scope,FilterProductModel){
-    $scope.filterProperties.products = [new FilterProductModel('Uncategorised', true)];
-    $scope.showProductChoices= function()
+    $scope.filterProperties.categories = [new FilterProductModel('Uncategorised', true)];
+    $scope.showCatogoryChoices= function()
     {
-        return !$scope.filterProperties.allProductsSelected;
+        return !$scope.filterProperties.allCategoriesSelected;
     }
-    $scope.selectAllProducts = function()
+    $scope.selectAllCategories = function()
     {
-        angular.forEach($scope.filterProperties.products, function(value,key){
+        angular.forEach($scope.filterProperties.categories, function(value,key){
             value.isSelected = true;
         });
     }
-    $scope.unselectAllProducts = function()
+    $scope.unselectAllCategories = function()
     {
-        angular.forEach($scope.filterProperties.products, function(value,key){
+        angular.forEach($scope.filterProperties.categories, function(value,key){
             value.isSelected =false;
         });
     }

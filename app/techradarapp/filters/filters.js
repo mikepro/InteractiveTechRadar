@@ -1,37 +1,34 @@
 var app = angular.module('TechRadarApp');
 
-app.filter('productFilter',['_',function(_){
+app.filter('categoryFilter',['_',function(_){
     return function(blips, filterModel)
     {
-       if(filterModel.allProductsSelected == true)
+       if(filterModel.allCategoriesSelected == true)
        {
            return blips;
        }
-       var selectedProducts = getSelectedProductNames(filterModel.products);
+       var selectedCategories = getSelectedCategoryNames(filterModel.categories);
         return _.filter(blips,function(blip){
-            var blipProducts = getBlipProductNames(blip.product);
-            var foundProducts = _.find(selectedProducts,function(selectedProduct){
-                var foundProduct = _.find(blipProducts, function(blipProject){return blipProject == selectedProduct});
-                var uncatogrisedSelected = selectedProduct == 'Uncategorised' && (blip.product == '' || blip.product == undefined);
-                if(foundProduct || uncatogrisedSelected)
-                {
-                    return true;
-                }
+            var blipCategories =getBlipCategoryNames(blip.category);
+            var foundCategories = _.find(selectedCategories,function(selectedCategory){
+                var foundCategory = _.find(blipCategories, function(blipCategory){return blipCategory == selectedCategory});
+                var uncatogrisedSelected = selectedCategory == 'Uncategorised' && (blip.category == '' || blip.category == undefined);
+                return foundCategory || uncatogrisedSelected;
             });
-            return foundProducts;
+            return foundCategories;
         });
     }
-    function getSelectedProductNames(products)
+    function getSelectedCategoryNames(categories)
     {
-        return _.chain(products)
-         .filter(function(product){return product.isSelected == true})
+        return _.chain(categories)
+         .filter(function(category){return category.isSelected == true})
          .pluck('name')
          .value();
     }
-    function getBlipProductNames(productString)
+    function getBlipCategoryNames(categoryString)
     {
-        if(productString == undefined)
+        if(categoryString == undefined)
             return [''];
-        return _.map(productString.split(','),function(value){return value.trim()});
+        return _.map(categoryString.split(','),function(value){return value.trim()});
     }
 }]);
