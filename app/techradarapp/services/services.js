@@ -191,7 +191,7 @@ app.service('InitialData',['$http','_','RingModel','BlipModel', function($http,_
             loadDataIntoModel(data);
         }).
         error(function(data, status, headers,config){
-            alert('Boom! something went wrong failing back to hardcoded data');
+            alert('Boom! could not load data from the server. Failing back to hardcoded defaults.');
             loadDataIntoModel(getDefaultData());
         });
 
