@@ -38,9 +38,9 @@
             </div>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <g transform="scale({{model.zoomLevel}})">
+            <g>
                 <g ng-repeat="ring in model.rings">
-                    <path class="svg-clickablering" ng-repeat="x in ring.segments" ng-attr-d="{{x}}" ng-click="selectRingAndGroup($index,ring)"/>
+                    <path class="svg-clickablering" style="stroke:black; fill:transparent" ng-repeat="x in ring.segments" ng-attr-d="{{x}}" ng-click="selectRingAndGroup($index,ring)"/>
                     <path class="svg-blip" ng-attr-highlighted="{{model.isHighlightedBlip(blip)?'true':'false'}}" ng-attr-blipselected="{{model.isSelectedBlip(blip)?'true':'false'}}" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)" ng-repeat="blip in ring.blips |filter:{name:filterProperties.searchTerm||undefined}| categoryFilter:filterProperties" ng-attr-d="{{blip.path}}"/>-->
                     <text class="svg-ringtext" ng-attr-x="{{ring.x}}" ng-attr-y="{{ring.y}}">{{ring.title}}</text>
                 </g>
