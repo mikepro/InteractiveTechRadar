@@ -14,7 +14,7 @@
     <body ng-app="TechRadarApp" ng-controller="TechRadarController">
         <script type="text/ng-template" id="legend.html">
             <div class="legend">
-                <h1>Group {{group}} blips</h1>
+                <h1>{{legendName}}</h1>
                 <ul>
                     <li ng-class="{'highlighted':model.isHighlightedBlip(blip),'selectedBlip':model.isSelectedBlip(blip)}" ng-repeat="blip in model.allBlipsForGroup(group)|filter:{name:filterProperties.searchTerm||undefined} | categoryFilter:filterProperties" ng-mouseenter="model.highlightGivenBlip(blip)" ng-mouseleave="model.clearHighlightedBlip()" ng-click="model.selecteGivenBlip(blip)">
                         <a name="{{blip.name}}"></a>
@@ -46,10 +46,10 @@
                 </g>
             </g>
         </svg>
-        <legend group="0" id="group0" model="model" filter-properties="filterProperties"></legend>
-        <legend group="1" id="group1" model="model" filter-properties="filterProperties"></legend>
-        <legend group="2" id="group2" model="model" filter-properties="filterProperties"></legend>
-        <legend group="3" id="group3" model="model" filter-properties="filterProperties"></legend>
+        <legend group="0" legend-name="Frameworks" id="group0" model="model" filter-properties="filterProperties"></legend>
+        <legend group="1" legend-name="Tools" id="group1" model="model" filter-properties="filterProperties"></legend>
+        <legend group="2" legend-name="Techniques" id="group2" model="model" filter-properties="filterProperties"></legend>
+        <legend group="3" legend-name="Languages" id="group3" model="model" filter-properties="filterProperties"></legend>
         <div class="addNewBlip" style="width:300px" ng-controller="SelectedRingGroupController" ng-show="isVisible()">
             <h1>Ring {{ringName()}} for group{{group()}} </h1>
             <label>Id</label><input type="text" ng-model="id"/></br>

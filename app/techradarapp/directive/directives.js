@@ -7,7 +7,8 @@ angular.module('TechRadarApp')
             model: '=',
             filterProperties:'=',
             title: '@',
-            group: '@'
+            group: '@',
+            legendName: '@',
         },
         templateUrl:'legend.html',
         replace: true
